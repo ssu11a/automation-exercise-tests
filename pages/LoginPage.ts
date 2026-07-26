@@ -1,0 +1,53 @@
+import { Locator, Page } from "playwright/test";
+import { BasePage } from "./BasePage";
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface SignupCredentials {
+  userName: string;
+  email: string;
+}
+
+export class LoginPage extends BasePage {
+  readonly loginTitle: Locator;
+  readonly loginEmailInput: Locator;
+  readonly loginPasswordInput: Locator;
+  readonly loginBtn: Locator;
+  readonly signupTitle: Locator;
+  readonly signupNameInput: Locator;
+  readonly signupEmailInput: Locator;
+  readonly signupBtn: Locator;
+
+  constructor(page: Page) {
+    super(page);
+    this.loginTitle = this.page.getByTitle('Login to your account');
+    this.loginEmailInput = this.page.getByTestId('login-email');
+    this.loginPasswordInput = this.page.getByTestId('login-password');
+    this.loginBtn = this.page.getByTestId('login-button');
+    this.signupTitle = this.page.getByTitle('New User Signup!');
+    this.signupNameInput = this.page.getByTestId('signup-name');
+    this.signupEmailInput = this.page.getByTestId('signup-email');
+    this.signupBtn = this.page.getByTestId('signup-button');
+  }
+
+  async goto() {
+    await this.page.goto('/login');
+  }
+
+  async login({ email, password }: LoginCredentials) {
+    await this.loginEmailInput.fill(email);
+    await this.loginPasswordInput.fill(password);
+    await this.loginBtn.click();
+  }
+
+  async signUp({ userName, email }: SignupCredentials) {
+    await this.signupNameInput.fill(userName);
+    await this.signupEmailInput.fill(email);
+    await this.signupBtn.click();
+  }
+
+  
+}
