@@ -10,4 +10,8 @@ export class AccountDeletedPage extends BasePage {
     this.accountDeletedTitle = this.page.getByTestId('account-deleted');
     this.continueBtn = this.page.getByTestId('continue-button');
   }
+
+  async continueToHomePage() {
+    await this.continueBtn.click();
+  }
 }

@@ -11,7 +11,7 @@ export class AccountCreatedPage extends BasePage {
     this.continueBtn = this.page.getByTestId('continue-button');
   }
 
-  async continueAfterAccountCreation() {
+  async continueToHomePage() {
     await this.continueBtn.click();
   }
 }

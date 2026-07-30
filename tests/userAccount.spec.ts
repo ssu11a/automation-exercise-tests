@@ -36,13 +36,14 @@ test.describe('Login and Signup', () => {
     });
 
     await test.step('Continue as the registered user', async () => {
-      await accountCreatedPage.continueAfterAccountCreation();
+      await accountCreatedPage.continueToHomePage();
       await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
     });
 
     await test.step('Delete the account', async () => {
       await basePage.openNavBarOption('deleteAccount');
       await expect(accountDeletedPage.accountDeletedTitle).toBeVisible();
+      await accountDeletedPage.continueToHomePage();
     });
   });
 });
