@@ -23,11 +23,15 @@ export class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.loginTitle = this.page.getByTitle('Login to your account');
+    this.loginTitle = this.page.getByRole('heading', {
+      name: 'Login to your account'
+    });
     this.loginEmailInput = this.page.getByTestId('login-email');
     this.loginPasswordInput = this.page.getByTestId('login-password');
     this.loginBtn = this.page.getByTestId('login-button');
-    this.signupTitle = this.page.getByTitle('New User Signup!');
+    this.signupTitle = this.page.getByRole('heading', {
+      name: 'New User Signup!'
+    });
     this.signupNameInput = this.page.getByTestId('signup-name');
     this.signupEmailInput = this.page.getByTestId('signup-email');
     this.signupBtn = this.page.getByTestId('signup-button');

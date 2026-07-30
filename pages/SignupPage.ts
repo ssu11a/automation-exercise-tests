@@ -5,7 +5,7 @@ export type Title = 'Mr' | 'Mrs';
 
 export interface BirthDate {
   day: number;
-  month: number;
+  month: string;
   year: number;
 }
 
@@ -68,7 +68,7 @@ export class SignupPage extends BasePage {
     this.emailInput = this.page.getByTestId('email');
     this.passwordInput = this.page.getByTestId('password');
     this.daySelector = this.page.getByTestId('days');
-    this.monthSelector = this.page.getByTestId('month');
+    this.monthSelector = this.page.getByTestId('months');
     this.yearSelector = this.page.getByTestId('years');
     this.newsletterCheckbox = this.page.locator('input[id="newsletter"]');
     this.optinCheckbox = this.page.locator('input[id="optin"]');
