@@ -8,7 +8,7 @@ interface RegisterUserData {
   signupForm: SignupFormData;
 }
 
-export function createRegisterUserData(): RegisterUserData {
+export const createRegisterUserData = (): RegisterUserData => {
   const sex = faker.person.sexType();
   const firstName = faker.person.firstName(sex);
   const lastName = faker.person.lastName();

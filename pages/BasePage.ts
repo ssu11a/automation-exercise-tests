@@ -6,7 +6,8 @@ const NAV_BAR_LABELS = {
     cart: 'Cart',
     login: 'Signup / Login',
     logout: 'Logout',
-    deleteAccount: 'Delete Account'
+    deleteAccount: 'Delete Account',
+    contactUs: 'Contact Us'
 } as const;
 
 type NavBarOption = keyof typeof NAV_BAR_LABELS;

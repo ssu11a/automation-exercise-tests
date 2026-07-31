@@ -4,6 +4,7 @@ import { AccountDeletedPage } from '../pages/AccountDeletedPage';
 import { BasePage } from '../pages/BasePage';
 import { LoginPage } from '../pages/LoginPage';
 import { SignupPage } from '../pages/SignupPage';
+import { ContactUsPage } from '../pages/ContactUsPage';
 
 const FUNDING_CHOICES_URL =
   /^https:\/\/fundingchoicesmessages\.google\.com\//;
@@ -14,6 +15,7 @@ interface PageObjectFixtures {
   signupPage: SignupPage;
   accountCreatedPage: AccountCreatedPage;
   accountDeletedPage: AccountDeletedPage;
+  contactUsPage: ContactUsPage;
 }
 
 export const test = base.extend<PageObjectFixtures>({
@@ -36,4 +38,7 @@ export const test = base.extend<PageObjectFixtures>({
   accountDeletedPage: async ({ page }, use) => {
     await use(new AccountDeletedPage(page));
   },
+  contactUsPage: async ({ page }, use) => {
+    await use(new ContactUsPage(page));
+  }
 });
