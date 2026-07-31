@@ -1,7 +1,20 @@
-import { test, expect } from "../fixtures/test";
-import { createRegisterUserData } from "../testData/registerUserData";
+import { test, expect } from '../fixtures/test';
+import { createRegisterUserData } from '../testData/registerUserData';
 
-test.describe('Login and Signup', () => {
+test.beforeEach(async ({ basePage, loginPage }) => {
+  await test.step('Open the home page', async () => {
+    await basePage.goto();
+    await expect(basePage.logo).toBeVisible();
+  });
+
+  await test.step('Open the login page', async () => {
+    await basePage.openNavBarOption('login');
+    await expect(loginPage.loginTitle).toBeVisible();
+    await expect(loginPage.signupTitle).toBeVisible();
+  });
+});
+
+test.describe('User registration', () => {
   test('Register user', async ({
     basePage,
     loginPage,
@@ -10,16 +23,6 @@ test.describe('Login and Signup', () => {
     accountDeletedPage
   }) => {
     const { userName, email, signupForm } = createRegisterUserData();
-
-    await test.step('Open the home page', async () => {
-      await basePage.goto();
-      await expect(basePage.logo).toBeVisible();
-    });
-
-    await test.step('Open the signup page', async () => {
-      await basePage.openNavBarOption('login');
-      await expect(loginPage.signupTitle).toBeVisible();
-    });
 
     await test.step('Start registration with a new user', async () => {
       await loginPage.signUp({ userName, email });
@@ -43,7 +46,63 @@ test.describe('Login and Signup', () => {
     await test.step('Delete the account', async () => {
       await basePage.openNavBarOption('deleteAccount');
       await expect(accountDeletedPage.accountDeletedTitle).toBeVisible();
-      await accountDeletedPage.continueToHomePage();
+    });
+  });
+
+  test('Register User with existing email', async ({
+    loginPage,
+    registeredUser
+  }) => {
+    const { email } = registeredUser;
+
+    await test.step('Signup with already registered email address', async () => {
+      await loginPage.signUp({ userName: 'userName', email });
+      await expect(loginPage.emailExistSpan).toBeVisible();
+    });
+  });
+});
+
+test.describe('User authentication', () => {
+  test('Login User with correct email and password', async ({
+    basePage,
+    loginPage,
+    registeredUser
+  }) => {
+    const { userName, email, password } = registeredUser;
+
+    await test.step('Login user', async () => {
+      await loginPage.login({ email, password });
+      await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
+    });
+  });
+
+  test('Login User with incorrect email and password', async ({
+    loginPage
+  }) => {
+    await test.step('Login user', async () => {
+      await loginPage.login({
+        email: 'incorrect@example.com',
+        password: 'incorrect'
+      });
+      await expect(loginPage.invalidSpan).toBeVisible();
+    });
+  });
+
+  test('Logout User', async ({
+    basePage,
+    loginPage,
+    registeredUser
+  }) => {
+    const { userName, email, password } = registeredUser;
+
+    await test.step('Login user', async () => {
+      await loginPage.login({ email, password });
+      await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
+    });
+
+    await test.step('Logout user', async () => {
+      await basePage.openNavBarOption('logout');
+      await expect(loginPage.loginTitle).toBeVisible();
     });
   });
 });

@@ -4,6 +4,7 @@ import type { SignupFormData } from "../pages/SignupPage";
 interface RegisterUserData {
   userName: string;
   email: string;
+  password: string;
   signupForm: SignupFormData;
 }
 
@@ -15,6 +16,7 @@ export function createRegisterUserData(): RegisterUserData {
   const uniqueId = faker.string.uuid().slice(0, 8);
   const userName =
     `${faker.internet.username({ firstName, lastName })}-${uniqueId}`;
+  const password = faker.internet.password();
   const email = faker.internet.email({
     firstName: `${firstName}.${uniqueId}`,
     lastName,
@@ -24,10 +26,11 @@ export function createRegisterUserData(): RegisterUserData {
   return {
     userName,
     email,
+    password,
     signupForm: {
       accountInfo: {
         title,
-        password: 'secretpassword123',
+        password,
         birthDate: {
           day: 20,
           month: 'April',
