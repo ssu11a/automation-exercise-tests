@@ -1,7 +1,7 @@
 import { Locator, Page } from "playwright";
 import { BasePage } from "./BasePage";
 
-export interface ContactUsData {
+interface ContactUsData {
   name: string;
   email: string;
   subject: string;
@@ -16,6 +16,8 @@ export class ContactUsPage extends BasePage {
   readonly messageTextArea: Locator;
   readonly uploadFileInput: Locator;
   readonly submitBtn: Locator;
+  readonly successSubmit: Locator;
+  readonly homeBtn: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -26,22 +28,29 @@ export class ContactUsPage extends BasePage {
     this.messageTextArea = this.page.getByTestId('message');
     this.uploadFileInput = this.page.locator('input[type="file"]');
     this.submitBtn = this.page.getByTestId('submit-button');
+    this.successSubmit = this.page.locator(
+      '#contact-page .status.alert-success'
+    );
+    this.homeBtn = this.page.locator('.btn-success');
   }
 
-  private async uploadFile(path: string) {
-    await this.uploadFileInput.setInputFiles(path);
-  }
-  
-  private async fillPageFields(data: ContactUsData) {
+  async fillContactUsForm(data: ContactUsData) {
     await this.nameInput.fill(data.name);
     await this.emailInput.fill(data.email);
     await this.subjectInput.fill(data.subject);
     await this.messageTextArea.fill(data.message);
   }
 
-  async submitContactUs(data: ContactUsData, path: string) {
-    await this.fillPageFields(data);
-    await this.uploadFile(path);
+  async uploadAttachment(filePath: string) {
+    await this.uploadFileInput.setInputFiles(filePath);
+  }
+
+  async submitContactUsForm() {
+    this.page.once('dialog', dialog => dialog.accept());
     await this.submitBtn.click();
+  }
+
+  async returnToHomePage() {
+    await this.homeBtn.click();
   }
 }

@@ -1,14 +1,14 @@
 import { test, expect } from '../fixtures/test';
 import { createRegisterUserData } from '../testData/registerUserData';
 
-test.beforeEach(async ({ basePage, loginPage }) => {
+test.beforeEach(async ({ homePage, loginPage }) => {
   await test.step('Open the home page', async () => {
-    await basePage.goto();
-    await expect(basePage.logo).toBeVisible();
+    await homePage.goto();
+    await expect(homePage.logo).toBeVisible();
   });
 
   await test.step('Open the login page', async () => {
-    await basePage.openNavBarOption('login');
+    await homePage.openNavBarOption('login');
     await expect(loginPage.loginTitle).toBeVisible();
     await expect(loginPage.signupTitle).toBeVisible();
   });
@@ -16,7 +16,7 @@ test.beforeEach(async ({ basePage, loginPage }) => {
 
 test.describe('User registration', () => {
   test('Register user', async ({
-    basePage,
+    homePage,
     loginPage,
     signupPage,
     accountCreatedPage,
@@ -40,11 +40,11 @@ test.describe('User registration', () => {
 
     await test.step('Continue as the registered user', async () => {
       await accountCreatedPage.continueToHomePage();
-      await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
+      await expect(homePage.navBar).toContainText(`Logged in as ${userName}`);
     });
 
     await test.step('Delete the account', async () => {
-      await basePage.openNavBarOption('deleteAccount');
+      await homePage.openNavBarOption('deleteAccount');
       await expect(accountDeletedPage.accountDeletedTitle).toBeVisible();
     });
   });
@@ -64,7 +64,7 @@ test.describe('User registration', () => {
 
 test.describe('User authentication', () => {
   test('Login User with correct email and password', async ({
-    basePage,
+    homePage,
     loginPage,
     registeredUser
   }) => {
@@ -72,7 +72,7 @@ test.describe('User authentication', () => {
 
     await test.step('Login user', async () => {
       await loginPage.login({ email, password });
-      await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
+      await expect(homePage.navBar).toContainText(`Logged in as ${userName}`);
     });
   });
 
@@ -89,7 +89,7 @@ test.describe('User authentication', () => {
   });
 
   test('Logout User', async ({
-    basePage,
+    homePage,
     loginPage,
     registeredUser
   }) => {
@@ -97,11 +97,11 @@ test.describe('User authentication', () => {
 
     await test.step('Login user', async () => {
       await loginPage.login({ email, password });
-      await expect(basePage.navBar).toContainText(`Logged in as ${userName}`);
+      await expect(homePage.navBar).toContainText(`Logged in as ${userName}`);
     });
 
     await test.step('Logout user', async () => {
-      await basePage.openNavBarOption('logout');
+      await homePage.openNavBarOption('logout');
       await expect(loginPage.loginTitle).toBeVisible();
     });
   });

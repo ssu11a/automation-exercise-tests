@@ -5,6 +5,7 @@ const NAV_BAR_LABELS = {
     products: 'Products',
     cart: 'Cart',
     login: 'Signup / Login',
+    testCases: 'Test Cases',
     logout: 'Logout',
     deleteAccount: 'Delete Account',
     contactUs: 'Contact Us'
@@ -23,13 +24,10 @@ export class BasePage {
     this.navBar = this.page.locator('.navbar-nav');
   }
 
-  async goto() {
-    await this.page.goto('/');
-  }
-
   async openNavBarOption(option: NavBarOption) {
     await this.navBar.getByRole('link', {
       name: NAV_BAR_LABELS[option]
     }).click();
+    await this.page.waitForLoadState('domcontentloaded');
   }
 }
