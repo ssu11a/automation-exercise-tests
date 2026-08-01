@@ -1,7 +1,7 @@
 import { Locator, Page } from "playwright";
 import { BasePage } from "./BasePage";
 
-interface ContactUsData {
+export interface ContactUsData {
   name: string;
   email: string;
   subject: string;

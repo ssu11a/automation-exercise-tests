@@ -6,7 +6,7 @@ export class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.sliderCarousel = this.page.locator('div[id="slider-carousel"]');
+    this.sliderCarousel = this.page.locator('#slider-carousel');
   }
 
   async goto() {

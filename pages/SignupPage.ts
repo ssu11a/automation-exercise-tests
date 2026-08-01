@@ -70,8 +70,8 @@ export class SignupPage extends BasePage {
     this.daySelector = this.page.getByTestId('days');
     this.monthSelector = this.page.getByTestId('months');
     this.yearSelector = this.page.getByTestId('years');
-    this.newsletterCheckbox = this.page.locator('input[id="newsletter"]');
-    this.optinCheckbox = this.page.locator('input[id="optin"]');
+    this.newsletterCheckbox = this.page.locator('#newsletter');
+    this.optinCheckbox = this.page.locator('#optin');
     this.firstNameInput = this.page.getByTestId('first_name');
     this.lastNameInput = this.page.getByTestId('last_name');
     this.companyInput = this.page.getByTestId('company');
