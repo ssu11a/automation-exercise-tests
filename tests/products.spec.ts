@@ -37,4 +37,39 @@ test.describe('Actions with products', () => {
       await expect(productDetailsPage.brand).toBeVisible();
     });
   });
+
+  test('Search product', async ({ productsPage }) => {
+    await test.step('Enter product name in search input and click search button', async () => {
+      await productsPage.searchProduct('Blue Top');
+      await expect(productsPage.searchedProductsTitle).toBeVisible();
+      await expect(productsPage.productCard).toContainText('Blue Top');
+    });
+  });
+
+  test('Add Products in Cart', async ({ productsPage, cartPage }) => {
+    const expectedProducts = [
+      { name: 'Blue Top', price: 500, quantity: 1 },
+      { name: 'Men Tshirt', price: 400, quantity: 1 }
+    ];
+
+    await test.step('Hover over first product and click "Add to cart"', async () => {
+      await productsPage.addProductToCart(0);
+      await productsPage.continueShopping();
+      await productsPage.addProductToCart(1);
+      await productsPage.viewCart();
+    });
+
+    await test.step('Verify products, prices, quantities and totals in the cart', async () => {
+      for (const product of expectedProducts) {
+        const productRow = cartPage.getProductRow(product.name);
+
+        await expect(productRow).toBeVisible();
+        await expect(productRow.locator('.cart_price')).toHaveText(`Rs. ${product.price}`);
+        await expect(productRow.locator('.cart_quantity')).toHaveText(String(product.quantity));
+        await expect(productRow.locator('.cart_total')).toHaveText(
+          `Rs. ${product.price * product.quantity}`
+        );
+      }
+    });
+  });
 });

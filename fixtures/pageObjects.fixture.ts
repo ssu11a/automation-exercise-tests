@@ -8,6 +8,8 @@ import { ContactUsPage } from '../pages/ContactUsPage';
 import { TestCasesPage } from '../pages/TestCasesPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { ProductDetailsPage } from '../pages/ProductDetailsPage';
+import { CartPage } from '../pages/CartPage';
+
 
 const FUNDING_CHOICES_URL =
   /^https:\/\/fundingchoicesmessages\.google\.com\//;
@@ -22,6 +24,7 @@ interface PageObjectFixtures {
   testCasesPage: TestCasesPage;
   productsPage: ProductsPage;
   productDetailsPage: ProductDetailsPage;
+  cartPage: CartPage;
 }
 
 export const test = base.extend<PageObjectFixtures>({
@@ -55,5 +58,8 @@ export const test = base.extend<PageObjectFixtures>({
   },
   productDetailsPage: async ({ page }, use) => {
     await use(new ProductDetailsPage(page));
+  },
+  cartPage: async ({ page }, use) => {
+    await use(new CartPage(page));
   }
 });
