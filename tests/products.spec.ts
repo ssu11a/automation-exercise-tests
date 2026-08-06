@@ -18,13 +18,13 @@ test.describe('Actions with products', () => {
     productDetailsPage
   }) => {
     await test.step('Ensure that the product list is visible', async () => {
-      const productCards = await productsPage.productCard.count();
+      const productCards = await productsPage.productCards.count();
 
       expect(productCards).toBeGreaterThan(0);
     });
 
     await test.step('Click on "View Product" of first product', async () => {
-      await productsPage.openProductByIndex(0);
+      await productsPage.productCards.openDetails(0);
       await expect(productsPage.page).toHaveURL('product_details/1');
     });
 
@@ -42,7 +42,7 @@ test.describe('Actions with products', () => {
     await test.step('Enter product name in search input and click search button', async () => {
       await productsPage.searchProduct('Blue Top');
       await expect(productsPage.searchedProductsTitle).toBeVisible();
-      await expect(productsPage.productCard).toContainText('Blue Top');
+      await expect(productsPage.productCards.getByName('Blue Top')).toBeVisible();
     });
   });
 
@@ -53,10 +53,10 @@ test.describe('Actions with products', () => {
     ];
 
     await test.step('Hover over first product and click "Add to cart"', async () => {
-      await productsPage.addProductToCart(0);
-      await productsPage.continueShopping();
-      await productsPage.addProductToCart(1);
-      await productsPage.viewCart();
+      await productsPage.productCards.addToCart(0);
+      await productsPage.addToCartModal.continueShopping();
+      await productsPage.productCards.addToCart(1);
+      await productsPage.addToCartModal.viewCart();
     });
 
     await test.step('Verify products, prices, quantities and totals in the cart', async () => {
@@ -64,12 +64,39 @@ test.describe('Actions with products', () => {
         const productRow = cartPage.getProductRow(product.name);
 
         await expect(productRow).toBeVisible();
-        await expect(productRow.locator('.cart_price')).toHaveText(`Rs. ${product.price}`);
-        await expect(productRow.locator('.cart_quantity')).toHaveText(String(product.quantity));
-        await expect(productRow.locator('.cart_total')).toHaveText(
+        await expect(cartPage.getProductPrice(product.name)).toHaveText(`Rs. ${product.price}`);
+        await expect(cartPage.getProductQuantity(product.name)).toHaveText(String(product.quantity));
+        await expect(cartPage.getProductTotalPrice(product.name)).toHaveText(
           `Rs. ${product.price * product.quantity}`
         );
       }
+    });
+  });
+
+  test('Verify Product quantity in Cart', async ({ productsPage, productDetailsPage, cartPage }) => {
+    const expectedProduct = {
+      name: 'Blue Top',
+      quantity: 4
+    };
+
+    await test.step('Click on "View Product" of first product', async () => {
+      await productsPage.productCards.openDetails(0);
+      await expect(productsPage.page).toHaveURL('product_details/1');
+    });
+
+    await test.step('Increase quantity to 4 and add product to cart', async () => {
+      await productDetailsPage.changeQuantity(expectedProduct.quantity);
+      await productDetailsPage.addProductToCart();
+      await productDetailsPage.addToCartModal.viewCart();
+    });
+
+    await test.step('Verify that product is displayed in cart page with exact quantity', async () => {
+      const productRow = cartPage.getProductRow(expectedProduct.name);
+
+      await expect(productRow).toBeVisible();
+      await expect(cartPage.getProductQuantity(expectedProduct.name)).toHaveText(
+        String(expectedProduct.quantity)
+      );
     });
   });
 });
