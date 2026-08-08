@@ -24,7 +24,7 @@ test.describe('Actions with products', () => {
     });
 
     await test.step('Click on "View Product" of first product', async () => {
-      await productsPage.productCards.openDetails(0);
+      await productsPage.productCards.openDetails('Blue Top');
       await expect(productsPage.page).toHaveURL('product_details/1');
     });
 
@@ -53,9 +53,9 @@ test.describe('Actions with products', () => {
     ];
 
     await test.step('Hover over first product and click "Add to cart"', async () => {
-      await productsPage.productCards.addToCart(0);
+      await productsPage.productCards.addToCart(expectedProducts[0].name);
       await productsPage.addToCartModal.continueShopping();
-      await productsPage.productCards.addToCart(1);
+      await productsPage.productCards.addToCart(expectedProducts[1].name);
       await productsPage.addToCartModal.viewCart();
     });
 
@@ -80,7 +80,7 @@ test.describe('Actions with products', () => {
     };
 
     await test.step('Click on "View Product" of first product', async () => {
-      await productsPage.productCards.openDetails(0);
+      await productsPage.productCards.openDetails(expectedProduct.name);
       await expect(productsPage.page).toHaveURL('product_details/1');
     });
 

@@ -17,14 +17,15 @@ test.describe('Order cases', async () => {
     accountCreatedPage
   }) => {
     const registerUserData = createRegisterUserData();
+    const expectedProductName = 'Blue Top';
 
     await test.step('Add product to cart', async () => {
-      await homePage.productCards.addToCart(0);
+      await homePage.productCards.addToCart(expectedProductName);
     });
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
       await expect(cartPage.cartInfoTable).toBeVisible();
-      await expect(cartPage.getProductRow('Blue Top')).toBeVisible();
+      await expect(cartPage.getProductRow(expectedProductName)).toBeVisible();
     });
     await test.step('Process checkout', async () => {
       await cartPage.processCheckoutBtn.click();

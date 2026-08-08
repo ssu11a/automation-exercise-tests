@@ -35,6 +35,7 @@ export class ProductDetailsPage extends BasePage {
   }
 
   async addProductToCart() {
+    await this.page.waitForLoadState('load');
     await this.addToCartBtn.click();
   }
 }

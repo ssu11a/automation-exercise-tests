@@ -1,34 +1,32 @@
-import { Locator, Page } from 'playwright';
+import { Locator } from 'playwright';
 
 export class ProductCardComponent {
-  private readonly page: Page;
-  private readonly cards: Locator;
+  private readonly root: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-    this.cards = this.page.locator('.product-image-wrapper');
+  constructor(root: Locator) {
+    this.root = root;
   }
 
   async count(): Promise<number> {
-    return this.cards.count();
+    return this.root.count();
   }
 
   getByName(productName: string): Locator {
-    return this.cards.filter({
-      has: this.page.getByText(productName, { exact: true })
-    });
+    return this.root
+      .locator('.productinfo')
+      .getByText(productName, { exact: true })
+      .locator('xpath=ancestor::div[contains(concat(" ", normalize-space(@class), " "), " product-image-wrapper ")][1]');
   }
 
-  async addToCart(index: number) {
-    const productCard = this.cards.nth(index);
+  async addToCart(productName: string) {
+    const productCard = this.getByName(productName);
 
     await productCard.hover();
     await productCard.locator('.product-overlay .add-to-cart').click();
   }
 
-  async openDetails(index: number) {
-    await this.cards
-      .nth(index)
+  async openDetails(productName: string) {
+    await this.getByName(productName)
       .locator('.choose')
       .getByRole('link', { name: 'View Product' })
       .click();

@@ -11,7 +11,9 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.sliderCarousel = this.page.locator('#slider-carousel');
-    this.productCards = new ProductCardComponent(page);
+    this.productCards = new ProductCardComponent(
+      this.page.locator('.features_items .product-image-wrapper')
+    );
     this.addToCartModal = new AddToCartModalComponent(page);
   }
 
