@@ -8,6 +8,16 @@ interface RegisterUserData {
   signupForm: SignupFormData;
 }
 
+export const createExpectedAddress = ({ accountInfo, addressInfo }: SignupFormData) => ({
+  name: `${accountInfo.title ? `${accountInfo.title}. ` : ''}${addressInfo.firstName} ${addressInfo.lastName}`,
+  company: addressInfo.company,
+  firstAddress: addressInfo.address,
+  secondAddress: addressInfo.secondAddress,
+  cityStateZipcode: `${addressInfo.city} ${addressInfo.state} ${addressInfo.zipcode}`,
+  country: addressInfo.country,
+  phone: addressInfo.mobileNumber
+});
+
 export const createRegisterUserData = (): RegisterUserData => {
   const sex = faker.person.sexType();
   const firstName = faker.person.firstName(sex);

@@ -1,4 +1,5 @@
 import { Locator, Page } from "playwright";
+import { CartItemsTableComponent } from '../components/CartItemsTableComponent';
 import { BasePage } from "./BasePage";
 
 export class CartPage extends BasePage {
@@ -6,11 +7,7 @@ export class CartPage extends BasePage {
   readonly processCheckoutBtn: Locator;
   readonly registerBtn: Locator;
   readonly continueOnCartBtn: Locator;
-  readonly cartInfoTable: Locator;
-  readonly productDescription: Locator;
-  readonly productPrice: Locator;
-  readonly productQuantity: Locator;
-  readonly totalProductPrice: Locator;
+  readonly cartItemsTable: CartItemsTableComponent;
 
   constructor(page: Page) {
     super(page);
@@ -18,29 +15,15 @@ export class CartPage extends BasePage {
     this.processCheckoutBtn = this.page.locator('.check_out');
     this.registerBtn = this.page.getByRole('link', { name: 'Register / Login' });
     this.continueOnCartBtn = this.page.getByRole('button', { name: 'Continue On Cart' });
-    this.cartInfoTable = this.page.locator('#cart_info_table');
-    this.productDescription = this.cartInfoTable.locator('.cart_description');
-    this.productPrice = this.cartInfoTable.locator('.cart_price');
-    this.productQuantity = this.cartInfoTable.locator('.cart_quantity');
-    this.totalProductPrice = this.cartInfoTable.locator('.cart_total');
+    this.cartItemsTable = new CartItemsTableComponent(this.page.locator('#cart_info_table'));
   }
 
-  getProductRow(productName: string): Locator {
-    return this.cartInfoTable.locator('tbody tr').filter({
-      has: this.page.getByRole('link', { name: productName, exact: true })
-    });
+  async submitProcessCheckout() {
+    await this.page.waitForLoadState('load');
+    await this.processCheckoutBtn.click();
   }
 
-  getProductPrice(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_price');
+  async continueToLoginPage() {
+    await this.registerBtn.click();
   }
-
-  getProductQuantity(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_quantity');
-  }
-
-  getProductTotalPrice(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_total');
-  }
-
 }

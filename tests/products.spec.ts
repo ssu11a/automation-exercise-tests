@@ -61,12 +61,16 @@ test.describe('Actions with products', () => {
 
     await test.step('Verify products, prices, quantities and totals in the cart', async () => {
       for (const product of expectedProducts) {
-        const productRow = cartPage.getProductRow(product.name);
+        const productRow = cartPage.cartItemsTable.getProductRow(product.name);
 
         await expect(productRow).toBeVisible();
-        await expect(cartPage.getProductPrice(product.name)).toHaveText(`Rs. ${product.price}`);
-        await expect(cartPage.getProductQuantity(product.name)).toHaveText(String(product.quantity));
-        await expect(cartPage.getProductTotalPrice(product.name)).toHaveText(
+        await expect(cartPage.cartItemsTable.getProductPrice(product.name)).toHaveText(
+          `Rs. ${product.price}`
+        );
+        await expect(cartPage.cartItemsTable.getProductQuantity(product.name)).toHaveText(
+          String(product.quantity)
+        );
+        await expect(cartPage.cartItemsTable.getProductTotalPrice(product.name)).toHaveText(
           `Rs. ${product.price * product.quantity}`
         );
       }
@@ -91,10 +95,10 @@ test.describe('Actions with products', () => {
     });
 
     await test.step('Verify that product is displayed in cart page with exact quantity', async () => {
-      const productRow = cartPage.getProductRow(expectedProduct.name);
+      const productRow = cartPage.cartItemsTable.getProductRow(expectedProduct.name);
 
       await expect(productRow).toBeVisible();
-      await expect(cartPage.getProductQuantity(expectedProduct.name)).toHaveText(
+      await expect(cartPage.cartItemsTable.getProductQuantity(expectedProduct.name)).toHaveText(
         String(expectedProduct.quantity)
       );
     });

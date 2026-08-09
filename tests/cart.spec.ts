@@ -1,5 +1,8 @@
 import { test, expect } from "../fixtures/test";
-import { createRegisterUserData } from '../testData/registerUserData';
+import {
+  createExpectedAddress,
+  createRegisterUserData
+} from '../testData/registerUserData';
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {
@@ -14,23 +17,24 @@ test.describe('Order cases', async () => {
     cartPage,
     loginPage,
     signupPage,
-    accountCreatedPage
+    accountCreatedPage,
+    checkoutPage
   }) => {
     const registerUserData = createRegisterUserData();
     const expectedProductName = 'Blue Top';
+    const expectedAddress = createExpectedAddress(registerUserData.signupForm);
 
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProductName);
     });
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
-      await expect(cartPage.cartInfoTable).toBeVisible();
-      await expect(cartPage.getProductRow(expectedProductName)).toBeVisible();
+      await expect(cartPage.cartItemsTable.root).toBeVisible();
+      await expect(cartPage.cartItemsTable.getProductRow(expectedProductName)).toBeVisible();
     });
     await test.step('Process checkout', async () => {
-      await cartPage.processCheckoutBtn.click();
-      await cartPage.registerBtn.waitFor();
-      await cartPage.registerBtn.click();
+      await cartPage.submitProcessCheckout();
+      await cartPage.continueToLoginPage();
     });
     await test.step('Fill all details in Signup and create account', async () => {
       await loginPage.signUp({ userName: registerUserData.userName, email: registerUserData.email });
@@ -44,6 +48,13 @@ test.describe('Order cases', async () => {
     await test.step('Verify logged in as username at top and go to cart', async () => {
       await expect(homePage.navBar).toContainText(`Logged in as ${registerUserData.userName}`);
       await homePage.openNavBarOption('cart');
+    });
+    await test.step('Process checkout', async () => {
+      await cartPage.submitProcessCheckout();
+    });
+    await test.step('Verify address and order details', async () => {
+      await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
+      await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
     });
   });
 });
