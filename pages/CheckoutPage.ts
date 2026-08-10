@@ -45,4 +45,12 @@ export class CheckoutPage extends BasePage {
     await expect.soft(addressBlock).toContainText(data.country);
     await expect.soft(addressBlock).toContainText(data.phone);
   }
+
+  async fillCommentTextArea(text: string) {
+    await this.orderMessageTextArea.fill(text);
+  }
+
+  async placeOrder() {
+    await this.placeOrderBtn.click();
+  }
 }

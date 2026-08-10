@@ -3,6 +3,7 @@ import {
   createExpectedAddress,
   createRegisterUserData
 } from '../testData/registerUserData';
+import { createPaymentData } from '../testData/paymentData';
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {
@@ -18,19 +19,24 @@ test.describe('Order cases', async () => {
     loginPage,
     signupPage,
     accountCreatedPage,
-    checkoutPage
+    checkoutPage,
+    paymentPage
   }) => {
     const registerUserData = createRegisterUserData();
-    const expectedProductName = 'Blue Top';
+    const paymentData = createPaymentData(registerUserData.signupForm.addressInfo);
+    const expectedProduct = {
+      name: 'Blue Top',
+      price: 500,
+      quantity: 1,
+    };
     const expectedAddress = createExpectedAddress(registerUserData.signupForm);
 
     await test.step('Add product to cart', async () => {
-      await homePage.productCards.addToCart(expectedProductName);
+      await homePage.productCards.addToCart(expectedProduct.name);
     });
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
       await expect(cartPage.cartItemsTable.root).toBeVisible();
-      await expect(cartPage.cartItemsTable.getProductRow(expectedProductName)).toBeVisible();
     });
     await test.step('Process checkout', async () => {
       await cartPage.submitProcessCheckout();
@@ -55,6 +61,15 @@ test.describe('Order cases', async () => {
     await test.step('Verify address and order details', async () => {
       await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
       await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
+      await checkoutPage.cartItemsTable.expectProduct(expectedProduct);
+    });
+    await test.step('Enter description in comment text area and click "Place Order"', async () => {
+      await checkoutPage.fillCommentTextArea('Order Message');
+      await checkoutPage.placeOrder();
+    });
+    await test.step('Enter payment details and submit', async () => {
+      await paymentPage.fillPaymentDetails(paymentData);
+      await paymentPage.submitPayment();
     });
   });
 });

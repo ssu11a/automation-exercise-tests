@@ -10,6 +10,7 @@ import { ProductsPage } from '../pages/ProductsPage';
 import { ProductDetailsPage } from '../pages/ProductDetailsPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { PaymentPage } from '../pages/PaymentPage';
 
 
 const FUNDING_CHOICES_URL =
@@ -24,9 +25,11 @@ interface PageObjectFixtures {
   contactUsPage: ContactUsPage;
   testCasesPage: TestCasesPage;
   productsPage: ProductsPage;
+  paymentPage: PaymentPage;
   productDetailsPage: ProductDetailsPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
+  
 }
 
 export const test = base.extend<PageObjectFixtures>({
@@ -66,5 +69,8 @@ export const test = base.extend<PageObjectFixtures>({
   },
   checkoutPage: async ({ page }, use) => {
     await use(new CheckoutPage(page));
-  }
+  },
+  paymentPage: async ({ page }, use) => {
+    await use(new PaymentPage(page));
+  },
 });

@@ -1,18 +1,16 @@
-import { Locator } from 'playwright';
+import { expect, Locator } from 'playwright/test';
+
+export interface ExpectedCartProduct {
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 export class CartItemsTableComponent {
   readonly root: Locator;
-  readonly productDescription: Locator;
-  readonly productPrice: Locator;
-  readonly productQuantity: Locator;
-  readonly productTotalPrice: Locator;
 
   constructor(root: Locator) {
     this.root = root;
-    this.productDescription = this.root.locator('.cart_description');
-    this.productPrice = this.root.locator('.cart_price');
-    this.productQuantity = this.root.locator('.cart_quantity');
-    this.productTotalPrice = this.root.locator('.cart_total');
   }
 
   getProductRow(productName: string): Locator {
@@ -21,15 +19,14 @@ export class CartItemsTableComponent {
       .locator('xpath=ancestor::tr[1]');
   }
 
-  getProductPrice(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_price');
-  }
+  async expectProduct(product: ExpectedCartProduct): Promise<void> {
+    const productRow = this.getProductRow(product.name);
 
-  getProductQuantity(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_quantity');
-  }
-
-  getProductTotalPrice(productName: string): Locator {
-    return this.getProductRow(productName).locator('.cart_total');
+    await expect(productRow).toBeVisible();
+    await expect(productRow.locator('.cart_price')).toHaveText(`Rs. ${product.price}`);
+    await expect(productRow.locator('.cart_quantity')).toHaveText(String(product.quantity));
+    await expect(productRow.locator('.cart_total')).toHaveText(
+      `Rs. ${product.price * product.quantity}`
+    );
   }
 }

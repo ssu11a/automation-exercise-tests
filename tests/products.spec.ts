@@ -61,18 +61,7 @@ test.describe('Actions with products', () => {
 
     await test.step('Verify products, prices, quantities and totals in the cart', async () => {
       for (const product of expectedProducts) {
-        const productRow = cartPage.cartItemsTable.getProductRow(product.name);
-
-        await expect(productRow).toBeVisible();
-        await expect(cartPage.cartItemsTable.getProductPrice(product.name)).toHaveText(
-          `Rs. ${product.price}`
-        );
-        await expect(cartPage.cartItemsTable.getProductQuantity(product.name)).toHaveText(
-          String(product.quantity)
-        );
-        await expect(cartPage.cartItemsTable.getProductTotalPrice(product.name)).toHaveText(
-          `Rs. ${product.price * product.quantity}`
-        );
+        await cartPage.cartItemsTable.expectProduct(product);
       }
     });
   });
@@ -80,6 +69,7 @@ test.describe('Actions with products', () => {
   test('Verify Product quantity in Cart', async ({ productsPage, productDetailsPage, cartPage }) => {
     const expectedProduct = {
       name: 'Blue Top',
+      price: 500,
       quantity: 4
     };
 
@@ -95,12 +85,7 @@ test.describe('Actions with products', () => {
     });
 
     await test.step('Verify that product is displayed in cart page with exact quantity', async () => {
-      const productRow = cartPage.cartItemsTable.getProductRow(expectedProduct.name);
-
-      await expect(productRow).toBeVisible();
-      await expect(cartPage.cartItemsTable.getProductQuantity(expectedProduct.name)).toHaveText(
-        String(expectedProduct.quantity)
-      );
+      await cartPage.cartItemsTable.expectProduct(expectedProduct);
     });
   });
 });
