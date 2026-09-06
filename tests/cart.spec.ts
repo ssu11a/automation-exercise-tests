@@ -20,7 +20,8 @@ test.describe('Order cases', async () => {
     signupPage,
     accountCreatedPage,
     checkoutPage,
-    paymentPage
+    paymentPage,
+    paymentDonePage
   }) => {
     const registerUserData = createRegisterUserData();
     const paymentData = createPaymentData(registerUserData.signupForm.addressInfo);
@@ -70,6 +71,34 @@ test.describe('Order cases', async () => {
     await test.step('Enter payment details and submit', async () => {
       await paymentPage.fillPaymentDetails(paymentData);
       await paymentPage.submitPayment();
+
+      await expect(paymentDonePage.orderPlacedHeading).toBeVisible();
+    });
+
+    await test.step('Download and verify invoice', async () => {
+      const downloadPromise = paymentDonePage.page.waitForEvent('download');
+      await paymentDonePage.downloadInvoiceBtn.click();
+      const download = await downloadPromise;
+      const invoiceStream = await download.createReadStream();
+
+      expect(download.suggestedFilename()).toBe('invoice.txt');
+      expect(invoiceStream).not.toBeNull();
+
+      let invoiceText = '';
+      for await (const chunk of invoiceStream!) {
+        invoiceText += chunk.toString();
+      }
+
+      const { firstName, lastName } = registerUserData.signupForm.addressInfo;
+      expect(invoiceText).toContain(
+        `Hi ${firstName} ${lastName}, Your total purchase amount is ${expectedProduct.price}. Thank you`
+      );
+    });
+
+    await test.step('Continue to home page', async () => {
+      await paymentDonePage.continueBtn.click();
+
+      await expect(homePage.sliderCarousel).toBeVisible();
     });
   });
 });

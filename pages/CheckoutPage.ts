@@ -24,7 +24,7 @@ export class CheckoutPage extends BasePage {
     this.deliveryAddressBlock = this.page.locator('#address_delivery');
     this.billingAddressBlock = this.page.locator('#address_invoice');
     this.cartItemsTable = new CartItemsTableComponent(this.page.locator('#cart_info'));
-    this.orderMessageTextArea = this.page.locator('.form_control');
+    this.orderMessageTextArea = this.page.locator('.form-control');
     this.placeOrderBtn = this.page.getByRole('link', { name: 'Place Order' });
   }
 
