@@ -15,6 +15,7 @@ export class AddToCartModalComponent {
 
   async viewCart() {
     await this.viewCartButton.click();
+    await this.modal.page().waitForLoadState('load');
   }
 
   async continueShopping() {
