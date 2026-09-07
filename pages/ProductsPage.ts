@@ -1,6 +1,7 @@
 import { Locator, Page } from "playwright";
 import { AddToCartModalComponent } from '../components/AddToCartModalComponent';
 import { ProductCardComponent } from '../components/ProductCardComponent';
+import { LeftSidebarComponent } from '../components/LeftSidebarComponent';
 import { BasePage } from "./BasePage";
 
 export class ProductsPage extends BasePage {
@@ -10,9 +11,11 @@ export class ProductsPage extends BasePage {
   readonly searchBtn: Locator;
   readonly productCards: ProductCardComponent;
   readonly addToCartModal: AddToCartModalComponent;
+  readonly leftSidebar: LeftSidebarComponent;
 
   constructor(page: Page) {
     super(page);
+    this.leftSidebar = new LeftSidebarComponent(page.locator('.left-sidebar'));
     this.title = this.page.getByRole('heading', { name: 'All Products', exact: true });
     this.searchedProductsTitle = this.page.getByRole('heading', { name: 'Searched Products', exact: true })
     this.searchInput = this.page.locator('#search_product');

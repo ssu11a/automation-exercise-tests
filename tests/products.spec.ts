@@ -89,3 +89,9 @@ test.describe('Actions with products', () => {
     });
   });
 });
+
+test.describe('Products category', () => {
+  test('View category products', ({ productsPage }) => {
+    await productsPage
+  });
+});
