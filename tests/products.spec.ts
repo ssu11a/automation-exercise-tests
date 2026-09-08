@@ -88,6 +88,67 @@ test.describe('Actions with products', () => {
       await cartPage.cartItemsTable.expectProduct(expectedProduct);
     });
   });
+
+  test('Search Products and Verify Cart After Login', async ({
+    productsPage,
+    cartPage,
+    loginPage,
+    homePage,
+    registeredUser
+  }) => {
+    test.slow();
+
+    const { userName, email, password } = registeredUser;
+    let productNames: string[];
+
+    await test.step('Search product', async () => {
+      await productsPage.searchProduct('T-shirt');
+      await expect(productsPage.searchedProductsTitle).toBeVisible();
+      await productsPage.page.waitForLoadState('load');
+    });
+
+    await test.step('Verify all product names contain "T-shirt"', async () => {
+      const productNames = productsPage.productCards.names;
+
+      for (const productName of await productNames.all()) {
+        await expect(productName).toContainText('T-shirt', { ignoreCase: true });
+      }
+    });
+
+    await test.step('Add all searched products to cart', async () => {
+      productNames = (await productsPage.productCards.names.allTextContents())
+        .map(name => name.trim());
+      expect(productNames.length).toBeGreaterThan(0);
+
+      for (const productName of productNames) {
+        await productsPage.productCards.addToCart(productName);
+        await productsPage.addToCartModal.continueShopping();
+      }
+    });
+
+    await test.step('Open cart and verify all searched products are visible', async () => {
+      await productsPage.openNavBarOption('cart');
+
+      for (const productName of productNames) {
+        await expect(cartPage.cartItemsTable.getProductRow(productName).root).toBeVisible();
+      }
+    });
+
+    await test.step('Open Signup / Login and log in as registered user', async () => {
+      await cartPage.openNavBarOption('login');
+      await expect(loginPage.loginTitle).toBeVisible();
+      await loginPage.login({ email, password });
+      await expect(homePage.navBar).toContainText(`Logged in as ${userName}`);
+    });
+
+    await test.step('Open cart again and verify products are still visible after login', async () => {
+      await homePage.openNavBarOption('cart');
+
+      for (const productName of productNames) {
+        await expect(cartPage.cartItemsTable.getProductRow(productName).root).toBeVisible();
+      }
+    });
+  });
 });
 
 test.describe('Products categories and brands', () => {
