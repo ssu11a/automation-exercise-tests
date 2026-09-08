@@ -65,5 +65,6 @@ export class LeftSidebarComponent {
 
   async openBrand(brand: Brand) {
     await this.getBrandLink(brand).click();
+    await this.root.page().waitForLoadState('domcontentloaded');
   }
 }
