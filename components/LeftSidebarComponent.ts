@@ -60,6 +60,7 @@ export class LeftSidebarComponent {
   async openSubcategory(category: Category, subcategory: string) {
     await this.openCategory(category);
     await this.getSubcategoryLink(category, subcategory).click();
+    await this.root.page().waitForLoadState('domcontentloaded');
   }
 
   async openBrand(brand: Brand) {

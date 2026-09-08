@@ -91,7 +91,17 @@ test.describe('Actions with products', () => {
 });
 
 test.describe('Products category', () => {
-  test('View category products', ({ productsPage }) => {
-    await productsPage
+  test('View category products', async ({ productsPage }) => {
+    await test.step('Open subcategory - dress', async () => {
+      await productsPage.leftSidebar.openSubcategory('Women', 'Dress');
+  
+      await expect(productsPage.title).toHaveText('Women -  Dress Products');
+    });
+
+    await test.step('Open subcategory - jeans', async () => {
+      await productsPage.leftSidebar.openSubcategory('Men', 'Jeans');
+
+      await expect(productsPage.title).toHaveText('Men -  Jeans Products');
+    });
   });
 });

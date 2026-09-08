@@ -16,7 +16,7 @@ export class ProductsPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.leftSidebar = new LeftSidebarComponent(page.locator('.left-sidebar'));
-    this.title = this.page.getByRole('heading', { name: 'All Products', exact: true });
+    this.title = this.page.locator('.title');
     this.searchedProductsTitle = this.page.getByRole('heading', { name: 'Searched Products', exact: true })
     this.searchInput = this.page.locator('#search_product');
     this.searchBtn = this.page.locator('#submit_search');
