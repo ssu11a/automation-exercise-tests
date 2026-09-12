@@ -1,4 +1,5 @@
 import { test, expect } from "../fixtures/test";
+import { createReviewData } from "../testData/reviewData";
 
 test.beforeEach(async ({ homePage, productsPage }) => {
   await test.step('Open the home page', async () => {
@@ -8,7 +9,7 @@ test.beforeEach(async ({ homePage, productsPage }) => {
 
   await test.step('Open the products page', async () => {
     await homePage.openNavBarOption('products');
-    await expect(productsPage.title).toBeVisible();
+    await expect(productsPage.title).toHaveText('All Products');
   });
 });
 
@@ -149,6 +150,21 @@ test.describe('Actions with products', () => {
       }
     });
   });
+  test('Add review on product', async ({productsPage, productDetailsPage}) => {
+    await test.step('Open card details page', async () => {
+      await productsPage.productCards.openDetails('Blue Top');
+
+      await expect(productDetailsPage.reviewTitle).toBeVisible();
+    });
+
+    await test.step('Fill review and submit', async () => {
+      const reviewData = createReviewData();
+      
+      await productDetailsPage.fillReviewDataAndSubmit(reviewData);
+
+      await expect(productDetailsPage.reviewSuccessAlert).toBeVisible();
+    });
+  })
 });
 
 test.describe('Products categories and brands', () => {
