@@ -86,10 +86,10 @@ export class SignupPage extends BasePage {
   }
 
   private async selectTitle(title: Title) {
-    const radioButton =
+    const radioBtn =
       title === 'Mr' ? this.maleRadioBtn : this.femaleRadioBtn;
 
-    await radioButton.check();
+    await radioBtn.check();
   }
 
   private async selectBirthDate({ day, month, year }: BirthDate) {

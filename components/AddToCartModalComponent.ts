@@ -2,23 +2,23 @@ import { Locator, Page } from 'playwright';
 
 export class AddToCartModalComponent {
   private readonly modal: Locator;
-  private readonly viewCartButton: Locator;
-  private readonly continueShoppingButton: Locator;
+  private readonly viewCartBtn: Locator;
+  private readonly continueShoppingBtn: Locator;
 
   constructor(page: Page) {
     this.modal = page.locator('.modal-content');
-    this.viewCartButton = this.modal.getByRole('link', { name: 'View Cart' });
-    this.continueShoppingButton = this.modal.getByRole('button', {
+    this.viewCartBtn = this.modal.getByRole('link', { name: 'View Cart' });
+    this.continueShoppingBtn = this.modal.getByRole('button', {
       name: 'Continue Shopping'
     });
   }
 
   async viewCart() {
-    await this.viewCartButton.click();
+    await this.viewCartBtn.click();
     await this.modal.page().waitForLoadState('load');
   }
 
   async continueShopping() {
-    await this.continueShoppingButton.click();
+    await this.continueShoppingBtn.click();
   }
 }

@@ -9,6 +9,8 @@ export class HomePage extends BasePage {
   readonly productCards: ProductCardComponent;
   readonly addToCartModal: AddToCartModalComponent;
   readonly leftSidebar: LeftSidebarComponent;
+  readonly recomendedItems: Locator;
+  readonly recomendedItemsCards: ProductCardComponent;
 
   constructor(page: Page) {
     super(page);
@@ -18,6 +20,8 @@ export class HomePage extends BasePage {
       this.page.locator('.features_items .product-image-wrapper')
     );
     this.addToCartModal = new AddToCartModalComponent(page);
+    this.recomendedItems = this.page.locator('.recommended_items');
+    this.recomendedItemsCards = new ProductCardComponent(this.page.locator('.recommended_items .product-image-wrapper'));
   }
 
   async goto() {

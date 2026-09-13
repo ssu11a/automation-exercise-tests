@@ -1,19 +1,21 @@
 import { test, expect } from "../fixtures/test";
 import { createReviewData } from "../testData/reviewData";
 
-test.beforeEach(async ({ homePage, productsPage }) => {
+test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {
     await homePage.goto();
     await expect(homePage.logo).toBeVisible();
   });
-
-  await test.step('Open the products page', async () => {
-    await homePage.openNavBarOption('products');
-    await expect(productsPage.title).toHaveText('All Products');
-  });
 });
 
 test.describe('Actions with products', () => {
+  test.beforeEach(async ({ homePage, productsPage }) => {
+    await test.step('Open the products page', async () => {
+      await homePage.openNavBarOption('products');
+      await expect(productsPage.title).toHaveText('All Products');
+    });
+  });
+
   test('Verify All Products and product detail page', async ({
     productsPage,
     productDetailsPage
@@ -109,7 +111,7 @@ test.describe('Actions with products', () => {
     });
 
     await test.step('Verify all product names contain "T-shirt"', async () => {
-      const productNames = productsPage.productCards.names;
+      const productNames = productsPage.productCards.name;
 
       for (const productName of await productNames.all()) {
         await expect(productName).toContainText('T-shirt', { ignoreCase: true });
@@ -117,7 +119,7 @@ test.describe('Actions with products', () => {
     });
 
     await test.step('Add all searched products to cart', async () => {
-      productNames = (await productsPage.productCards.names.allTextContents())
+      productNames = (await productsPage.productCards.name.allTextContents())
         .map(name => name.trim());
       expect(productNames.length).toBeGreaterThan(0);
 
@@ -202,5 +204,29 @@ test.describe('Products categories and brands', () => {
       await expect(productsPage.title).toHaveText('Brand -  H&M Products');
       expect(productsCards).toBe(5);
     });
+  });
+});
+
+test('Add to cart from recommended items', async ({ homePage, cartPage }) => {
+  const expectedProduct = {
+    name: 'Blue Top',
+    price: 500,
+    quantity: 1
+  };
+
+  await test.step('Scroll to recommended items', async () => {
+    await homePage.recomendedItems.scrollIntoViewIfNeeded();
+
+    await expect(homePage.recomendedItems).toContainText('recommended items');
+  });
+
+  await test.step('Add recommended item to cart', async () => {
+    await homePage.recomendedItemsCards.addToCart('Blue Top', true);
+
+    await homePage.addToCartModal.viewCart();
+  });
+
+  await test.step('Verify that product is displayed in cart page', async () => {
+    await cartPage.cartItemsTable.expectProduct(expectedProduct);
   });
 });

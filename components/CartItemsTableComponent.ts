@@ -11,14 +11,14 @@ class CartProductRowComponent {
   readonly price: Locator;
   readonly quantity: Locator;
   readonly total: Locator;
-  readonly deleteButton: Locator;
+  readonly deleteBtn: Locator;
 
   constructor(root: Locator) {
     this.root = root;
     this.price = this.root.locator('.cart_price');
     this.quantity = this.root.locator('.cart_quantity');
     this.total = this.root.locator('.cart_total');
-    this.deleteButton = this.root.locator('.cart_quantity_delete');
+    this.deleteBtn = this.root.locator('.cart_quantity_delete');
   }
 }
 
@@ -52,7 +52,7 @@ export class CartItemsTableComponent {
 
   async removeProduct(productName: string): Promise<void> {
     const productRow = this.getProductRow(productName);
-    const productId = await productRow.deleteButton.getAttribute('data-product-id');
+    const productId = await productRow.deleteBtn.getAttribute('data-product-id');
 
     if (productId === null) {
       throw new Error(`Product ID is missing for "${productName}"`);
@@ -62,7 +62,7 @@ export class CartItemsTableComponent {
       response => response.url().includes(`/delete_cart/${productId}`) && response.ok()
     );
 
-    await productRow.deleteButton.click();
+    await productRow.deleteBtn.click();
     await deleteResponse;
   }
 
