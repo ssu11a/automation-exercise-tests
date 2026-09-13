@@ -31,4 +31,31 @@ test.describe('Subscription cases', async () => {
       await expect(cartPage.successSubscribeSpan).toBeVisible();
     });
   });
-})
+
+  test('Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ homePage }) => {
+    await test.step('Scroll down to bottom of the page', async () => {
+      await homePage.subscribeTitle.scrollIntoViewIfNeeded();
+      await expect(homePage.subscribeTitle).toBeInViewport();
+    });
+
+    await test.step('Click scroll up button and verify page scrolled up', async () => {
+      await homePage.scrollUpBtn.click();
+      await expect(homePage.sliderCarousel).toBeInViewport();
+      await expect(homePage.sliderCarousel).toContainText('Full-Fledged practice website for Automation Engineers');
+    });
+  });
+
+  test('Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ homePage }) => {
+    await test.step('Scroll down to bottom of the page', async () => {
+      await homePage.subscribeTitle.scrollIntoViewIfNeeded();
+      await expect(homePage.subscribeTitle).toBeInViewport();
+    });
+
+    await test.step('Scroll up to top of the page', async () => {
+      await homePage.sliderCarousel.scrollIntoViewIfNeeded();
+      await expect(homePage.sliderCarousel).toBeInViewport();
+      await expect(homePage.sliderCarousel).toContainText('Full-Fledged practice website for Automation Engineers');
+    });
+  });
+});
+;

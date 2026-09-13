@@ -11,6 +11,8 @@ export class HomePage extends BasePage {
   readonly leftSidebar: LeftSidebarComponent;
   readonly recomendedItems: Locator;
   readonly recomendedItemsCards: ProductCardComponent;
+  readonly scrollUpBtn: Locator;
+  readonly headerTitle: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -22,6 +24,7 @@ export class HomePage extends BasePage {
     this.addToCartModal = new AddToCartModalComponent(page);
     this.recomendedItems = this.page.locator('.recommended_items');
     this.recomendedItemsCards = new ProductCardComponent(this.page.locator('.recommended_items .product-image-wrapper'));
+    this.scrollUpBtn = this.page.locator('#scrollUp');
   }
 
   async goto() {

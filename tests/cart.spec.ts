@@ -19,6 +19,131 @@ test.describe('Order cases', async () => {
     quantity: 1,
   };
 
+  test('Verify address details in checkout page', async ({
+    homePage,
+    loginPage,
+    signupPage,
+    accountCreatedPage,
+    cartPage,
+    checkoutPage,
+    accountDeletedPage
+  }) => {
+    const userData = createRegisterUserData();
+    const expectedAddress = createExpectedAddress(userData.signupForm);
+
+    await test.step('Register new user', async () => {
+      await homePage.openNavBarOption('login');
+      await loginPage.signUp({
+        userName: userData.userName,
+        email: userData.email,
+      });
+      await signupPage.fillSignupForm(userData.signupForm);
+      await signupPage.submitSignupForm();
+      await expect(accountCreatedPage.accountCreatedTitle).toBeVisible();
+      await accountCreatedPage.continueToHomePage();
+      await expect(homePage.navBar).toContainText(`Logged in as ${userData.userName}`);
+    });
+
+    await test.step('Add product to cart', async () => {
+      await homePage.productCards.addToCart(expectedProduct.name);
+      await homePage.addToCartModal.continueShopping();
+    });
+
+    await test.step('Process checkout', async () => {
+      await homePage.openNavBarOption('cart');
+      await expect(cartPage.page).toHaveURL(/cart/);
+      await cartPage.submitProcessCheckout();
+    });
+
+    await test.step('Verify delivery and billing address details', async () => {
+      await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
+      await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
+    });
+
+    await test.step('Delete account', async () => {
+      await homePage.openNavBarOption('deleteAccount');
+      await expect(accountDeletedPage.accountDeletedTitle).toBeVisible();
+      await accountDeletedPage.continueToHomePage();
+    });
+  });
+
+  test('Download Invoice after purchase order', async ({
+    homePage,
+    loginPage,
+    signupPage,
+    accountCreatedPage,
+    cartPage,
+    checkoutPage,
+    paymentPage,
+    paymentDonePage,
+    accountDeletedPage
+  }) => {
+    const userData = createRegisterUserData();
+    const expectedAddress = createExpectedAddress(userData.signupForm);
+    const paymentData = createPaymentData(userData.signupForm.addressInfo);
+
+    await test.step('Add product to cart', async () => {
+      await homePage.productCards.addToCart(expectedProduct.name);
+      await homePage.addToCartModal.continueShopping();
+    });
+
+    await test.step('Open cart and proceed to checkout', async () => {
+      await homePage.openNavBarOption('cart');
+      await expect(cartPage.page).toHaveURL(/cart/);
+      await cartPage.submitProcessCheckout();
+    });
+
+    await test.step('Register new user during checkout', async () => {
+      await cartPage.continueToLoginPage();
+      await loginPage.signUp({ userName: userData.userName, email: userData.email });
+      await signupPage.fillSignupForm(userData.signupForm);
+      await signupPage.submitSignupForm();
+      await expect(accountCreatedPage.accountCreatedTitle).toBeVisible();
+      await accountCreatedPage.continueToHomePage();
+      await expect(homePage.navBar).toContainText(`Logged in as ${userData.userName}`);
+    });
+
+    await test.step('Return to checkout and verify address', async () => {
+      await homePage.openNavBarOption('cart');
+      await cartPage.submitProcessCheckout();
+      await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
+      await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
+    });
+
+    await test.step('Place order and enter payment details', async () => {
+      await checkoutPage.fillCommentTextArea('Invoice Test Order');
+      await checkoutPage.placeOrder();
+      await paymentPage.fillPaymentDetails(paymentData);
+      await paymentPage.submitPayment();
+      await expect(paymentDonePage.orderPlacedHeading).toBeVisible();
+    });
+
+    await test.step('Download and verify invoice', async () => {
+      const downloadPromise = paymentDonePage.page.waitForEvent('download');
+      await paymentDonePage.downloadInvoiceBtn.click();
+      const download = await downloadPromise;
+      
+      expect(download.suggestedFilename()).toBe('invoice.txt');
+      
+      const invoiceStream = await download.createReadStream();
+      let invoiceText = '';
+      for await (const chunk of invoiceStream!) {
+        invoiceText += chunk.toString();
+      }
+
+      const { firstName, lastName } = userData.signupForm.addressInfo;
+      expect(invoiceText).toContain(`Hi ${firstName} ${lastName}, Your total purchase amount is ${expectedProduct.price}. Thank you`);
+    });
+
+    await test.step('Continue to home page and delete account', async () => {
+      await paymentDonePage.continueBtn.click();
+      await expect(homePage.sliderCarousel).toBeVisible();
+      await homePage.openNavBarOption('deleteAccount');
+      await expect(accountDeletedPage.accountDeletedTitle).toBeVisible();
+      await accountDeletedPage.continueToHomePage();
+    });
+  });
+
   test('Place Order: Register while Checkout', async ({
     homePage,
     cartPage,
