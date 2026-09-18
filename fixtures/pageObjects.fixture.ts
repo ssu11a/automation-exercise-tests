@@ -1,17 +1,19 @@
 import { test as base } from '@playwright/test';
-import { AccountCreatedPage } from '../pages/AccountCreatedPage';
-import { AccountDeletedPage } from '../pages/AccountDeletedPage';
-import { HomePage } from '../pages/HomePage';
-import { LoginPage } from '../pages/LoginPage';
-import { SignupPage } from '../pages/SignupPage';
-import { ContactUsPage } from '../pages/ContactUsPage';
-import { TestCasesPage } from '../pages/TestCasesPage';
-import { ProductsPage } from '../pages/ProductsPage';
-import { ProductDetailsPage } from '../pages/ProductDetailsPage';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutPage } from '../pages/CheckoutPage';
-import { PaymentPage } from '../pages/PaymentPage';
-import { PaymentDonePage } from '../pages/PaymentDonePage';
+import {
+  AccountCreatedPage,
+  AccountDeletedPage,
+  CartPage,
+  CheckoutPage,
+  ContactUsPage,
+  HomePage,
+  LoginPage,
+  PaymentDonePage,
+  PaymentPage,
+  ProductDetailsPage,
+  ProductsPage,
+  SignupPage,
+  TestCasesPage
+} from '@pages';
 
 
 const FUNDING_CHOICES_URL =

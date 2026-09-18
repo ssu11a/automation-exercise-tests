@@ -1,5 +1,5 @@
 import { fakerEN as faker, } from "@faker-js/faker";
-import type { ReviewData } from "../pages/ProductDetailsPage";
+import type { ReviewData } from "@pages";
 
 export const createReviewData = (): ReviewData => {
   return {

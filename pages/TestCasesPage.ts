@@ -1,5 +1,5 @@
 import { Locator, Page } from "playwright";
-import { BasePage } from "./BasePage";
+import { BasePage } from "@pages";
 
 export class TestCasesPage extends BasePage {
   readonly title: Locator;

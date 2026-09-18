@@ -1,5 +1,5 @@
-import { test, expect } from "../fixtures/test";
-import { createReviewData } from "../testData/reviewData";
+import { test, expect } from "@fixtures";
+import { createReviewData } from "@testData";
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {

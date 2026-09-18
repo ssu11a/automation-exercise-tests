@@ -1,6 +1,6 @@
 import { Locator, Page } from "playwright";
-import { CartItemsTableComponent } from '../components/CartItemsTableComponent';
-import { BasePage } from "./BasePage";
+import { CartItemsTableComponent } from '@components';
+import { BasePage } from '@pages';
 
 export class CartPage extends BasePage {
   readonly emptyCartSpan: Locator;

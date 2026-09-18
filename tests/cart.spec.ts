@@ -1,9 +1,9 @@
-import { test, expect } from "../fixtures/test";
+import { test, expect } from "@fixtures";
 import {
   createExpectedAddress,
   createRegisterUserData
-} from '../testData/registerUserData';
-import { createPaymentData } from '../testData/paymentData';
+} from '@testData';
+import { createPaymentData } from '@testData';
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {

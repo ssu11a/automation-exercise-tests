@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "playwright/test";
-import { BasePage } from "./BasePage";
-import { CartItemsTableComponent } from "../components/CartItemsTableComponent";
+import { BasePage } from "@pages";
+import { CartItemsTableComponent } from "@components";
 
 interface AddressData {
   name: string;

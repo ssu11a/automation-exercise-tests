@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["pages/index.ts"],
+      "@pages/*": ["pages/*"],
+      "@components": ["components/index.ts"],
+      "@components/*": ["components/*"],
+      "@fixtures": ["fixtures/index.ts"],
+      "@fixtures/*": ["fixtures/*"],
+      "@testData": ["testData/index.ts"],
+      "@testData/*": ["testData/*"]
+    },
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

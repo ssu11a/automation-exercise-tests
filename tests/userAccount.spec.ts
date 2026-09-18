@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/test';
-import { createRegisterUserData } from '../testData/registerUserData';
+import { test, expect } from '@fixtures';
+import { createRegisterUserData } from '@testData';
 
 test.beforeEach(async ({ homePage, loginPage }) => {
   await test.step('Open the home page', async () => {

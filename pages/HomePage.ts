@@ -1,8 +1,6 @@
 import { Locator, Page } from "playwright";
-import { AddToCartModalComponent } from '../components/AddToCartModalComponent';
-import { ProductCardComponent } from '../components/ProductCardComponent';
-import { LeftSidebarComponent } from '../components/LeftSidebarComponent';
-import { BasePage } from "./BasePage";
+import { AddToCartModalComponent, LeftSidebarComponent, ProductCardComponent } from '@components';
+import { BasePage } from '@pages';
 
 export class HomePage extends BasePage {
   readonly sliderCarousel: Locator;

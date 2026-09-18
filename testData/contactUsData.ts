@@ -1,5 +1,5 @@
 import { fakerEN as faker } from "@faker-js/faker";
-import { ContactUsData } from "../pages/ContactUsPage";
+import { ContactUsData } from "@pages";
 
 export const createContactUsData = (): ContactUsData => {
   const name = faker.person.fullName();

@@ -1,6 +1,6 @@
 import { Locator, Page } from 'playwright';
-import { AddToCartModalComponent } from '../components/AddToCartModalComponent';
-import { BasePage } from './BasePage';
+import { AddToCartModalComponent } from '@components';
+import { BasePage } from '@pages';
 
 export interface ReviewData {
   name: string;

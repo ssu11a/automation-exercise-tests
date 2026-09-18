@@ -1,5 +1,5 @@
 import { fakerEN as faker } from "@faker-js/faker";
-import type { SignupFormData } from "../pages/SignupPage";
+import type { SignupFormData } from "@pages";
 
 interface RegisterUserData {
   userName: string;

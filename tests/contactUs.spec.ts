@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
-import { test, expect } from '../fixtures/test';
-import { createContactUsData } from '../testData/contactUsData';
+import { test, expect } from '@fixtures';
+import { createContactUsData } from '@testData';
 
 const CONTACT_US_ATTACHMENT = resolve(
   __dirname,

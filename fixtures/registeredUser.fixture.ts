@@ -1,5 +1,5 @@
 import { expect, test as base } from '@playwright/test';
-import { createRegisterUserData } from '../testData/registerUserData';
+import { createRegisterUserData } from '@testData';
 
 interface RegisteredUserFixtures {
   registeredUser: ReturnType<typeof createRegisterUserData>;

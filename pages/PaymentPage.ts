@@ -1,6 +1,6 @@
 import { Locator, Page } from "playwright/test";
-import { BasePage } from "./BasePage";
-import type { PaymentData } from "../testData/paymentData";
+import { BasePage } from "@pages";
+import type { PaymentData } from "@testData";
 
 export class PaymentPage extends BasePage {
   readonly nameOnCardInput: Locator;

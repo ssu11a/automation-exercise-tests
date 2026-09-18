@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/test";
+import { test, expect } from "@fixtures";
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {
