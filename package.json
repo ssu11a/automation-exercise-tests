@@ -5,7 +5,9 @@
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.62.0",
-    "@types/node": "^26.1.1"
+    "@types/node": "^26.1.1",
+    "allure": "^3.18.0",
+    "allure-playwright": "^3.12.2"
   },
   "scripts": {}
 }
