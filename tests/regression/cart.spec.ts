@@ -1,4 +1,5 @@
 import { test, expect, regressionTestDetails } from "@fixtures";
+import { readFile } from 'node:fs/promises';
 import {
   createExpectedAddress,
   createRegisterUserData
@@ -12,7 +13,7 @@ test.beforeEach(async ({ homePage }) => {
   });
 });
 
-test.describe('Order cases', async () => {
+test.describe('Order cases', () => {
   const expectedProduct = {
     name: 'Blue Top',
     price: 500,
@@ -125,11 +126,11 @@ test.describe('Order cases', async () => {
       
       expect(download.suggestedFilename()).toBe('invoice.txt');
       
-      const invoiceStream = await download.createReadStream();
-      let invoiceText = '';
-      for await (const chunk of invoiceStream!) {
-        invoiceText += chunk.toString();
+      const invoicePath = await download.path();
+      if (!invoicePath) {
+        throw new Error('Invoice download path is unavailable');
       }
+      const invoiceText = await readFile(invoicePath, 'utf8');
 
       const { firstName, lastName } = userData.signupForm.addressInfo;
       expect(invoiceText).toContain(`Hi ${firstName} ${lastName}, Your total purchase amount is ${expectedProduct.price}. Thank you`);
@@ -161,64 +162,72 @@ test.describe('Order cases', async () => {
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProduct.name);
     });
+
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
       await expect(cartPage.cartItemsTable.root).toBeVisible();
     });
+
     await test.step('Process checkout', async () => {
       await cartPage.submitProcessCheckout();
       await cartPage.continueToLoginPage();
     });
+
     await test.step('Fill all details in Signup and create account', async () => {
       await loginPage.signUp({ userName: registerUserData.userName, email: registerUserData.email });
       await signupPage.fillSignupForm(registerUserData.signupForm);
       await signupPage.submitSignupForm();
     });
+
     await test.step('Verify account created and continue to home page', async () => {
       await expect(accountCreatedPage.accountCreatedTitle).toBeVisible();
       await accountCreatedPage.continueToHomePage();
     });
+
     await test.step('Verify logged in as username at top and go to cart', async () => {
       await expect(homePage.navBar).toContainText(`Logged in as ${registerUserData.userName}`);
       await homePage.openNavBarOption('cart');
     });
+
     await test.step('Process checkout', async () => {
       await cartPage.submitProcessCheckout();
     });
+
     await test.step('Verify address and order details', async () => {
       await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
       await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
       await checkoutPage.cartItemsTable.expectProduct(expectedProduct);
     });
+
     await test.step('Enter description in comment text area and click "Place Order"', async () => {
       await checkoutPage.fillCommentTextArea('Order Message');
       await checkoutPage.placeOrder();
     });
+
     await test.step('Enter payment details and submit', async () => {
       await paymentPage.fillPaymentDetails(paymentData);
       await paymentPage.submitPayment();
 
       await expect(paymentDonePage.orderPlacedHeading).toBeVisible();
     });
+
     await test.step('Download and verify invoice', async () => {
       const downloadPromise = paymentDonePage.page.waitForEvent('download');
       await paymentDonePage.downloadInvoiceBtn.click();
       const download = await downloadPromise;
-      const invoiceStream = await download.createReadStream();
-
       expect(download.suggestedFilename()).toBe('invoice.txt');
-      expect(invoiceStream).not.toBeNull();
-
-      let invoiceText = '';
-      for await (const chunk of invoiceStream!) {
-        invoiceText += chunk.toString();
+      const invoicePath = await download.path();
+      if (!invoicePath) {
+        throw new Error('Invoice download path is unavailable');
       }
+      const invoiceText = await readFile(invoicePath, 'utf8');
 
       const { firstName, lastName } = registerUserData.signupForm.addressInfo;
       expect(invoiceText).toContain(
         `Hi ${firstName} ${lastName}, Your total purchase amount is ${expectedProduct.price}. Thank you`
       );
     });
+
     await test.step('Continue to home page', async () => {
       await paymentDonePage.continueBtn.click();
 
@@ -244,25 +253,31 @@ test.describe('Order cases', async () => {
       await loginPage.login({ email, password });
       await expect(homePage.navBar).toContainText(`Logged in as ${userName}`);
     });
+
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProduct.name);
     });
+
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
       await expect(cartPage.cartItemsTable.root).toBeVisible();
     });
+
     await test.step('Process checkout', async () => {
       await cartPage.submitProcessCheckout();
     });
+
     await test.step('Verify address details and review order', async () => {
       await checkoutPage.checkAddressDetails(checkoutPage.deliveryAddressBlock, expectedAddress);
       await checkoutPage.checkAddressDetails(checkoutPage.billingAddressBlock, expectedAddress);
       await checkoutPage.cartItemsTable.expectProduct(expectedProduct);
     });
+
     await test.step('Enter order description and place order', async () => {
       await checkoutPage.fillCommentTextArea('Order Message');
       await checkoutPage.placeOrder();
     });
+
     await test.step('Enter payment details and confirm order', async () => {
       await paymentPage.fillPaymentDetails(paymentData);
       await paymentPage.submitPayment();
@@ -278,10 +293,12 @@ test.describe('Order cases', async () => {
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProduct.name);
     });
+
     await test.step('Open cart', async () => {
       await homePage.addToCartModal.viewCart();
       await expect(cartPage.cartItemsTable.root).toBeVisible();
     });
+
     await test.step('Remove product from cart', async () => {
       await cartPage.cartItemsTable.removeProduct(expectedProduct.name);
       await cartPage.cartItemsTable.expectProductNotPresent(expectedProduct.name);

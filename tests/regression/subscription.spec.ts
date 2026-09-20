@@ -7,7 +7,7 @@ test.beforeEach(async ({ homePage }) => {
   });
 });
 
-test.describe('Subscription cases', async () => {
+test.describe('Subscription cases', () => {
   test('Verify Subscription in home page', regressionTestDetails('@subscription'), async ({ homePage }) => {
     await test.step('Scroll down to footer', async () => {
       await homePage.subscribeInput.scrollIntoViewIfNeeded();
@@ -58,4 +58,5 @@ test.describe('Subscription cases', async () => {
     });
   });
 });
+
 ;

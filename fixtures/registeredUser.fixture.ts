@@ -32,7 +32,7 @@ export const test = base.extend<RegisteredUserFixtures>({
         mobile_number: addressInfo.mobileNumber
       }
     });
-    const createResult = await createResponse.json();
+    const createResult: unknown = await createResponse.json();
 
     expect(createResult).toMatchObject({
       responseCode: 201,
@@ -45,7 +45,7 @@ export const test = base.extend<RegisteredUserFixtures>({
       const deleteResponse = await request.delete('/api/deleteAccount', {
         form: { email, password }
       });
-      const deleteResult = await deleteResponse.json();
+      const deleteResult: unknown = await deleteResponse.json();
 
       expect(deleteResult).toMatchObject({
         responseCode: 200,

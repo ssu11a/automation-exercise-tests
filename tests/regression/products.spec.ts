@@ -152,6 +152,7 @@ test.describe('Actions with products', () => {
       }
     });
   });
+
   test('Add review on product', regressionTestDetails('@catalog'), async ({productsPage, productDetailsPage}) => {
     await test.step('Open card details page', async () => {
       await productsPage.productCards.openDetails('Blue Top');
@@ -161,7 +162,7 @@ test.describe('Actions with products', () => {
 
     await test.step('Fill review and submit', async () => {
       const reviewData = createReviewData();
-      
+
       await productDetailsPage.fillReviewDataAndSubmit(reviewData);
 
       await expect(productDetailsPage.reviewSuccessAlert).toBeVisible();
@@ -174,7 +175,7 @@ test.describe('Products categories and brands', () => {
     await test.step('Open subcategory - dress', async () => {
       await productsPage.leftSidebar.openSubcategory('Women', 'Dress');
       const productsCards = await productsPage.productCards.count();
-  
+
       await expect(productsPage.title).toHaveText('Women -  Dress Products');
       expect(productsCards).toBeGreaterThan(0);
     });
@@ -191,18 +192,18 @@ test.describe('Products categories and brands', () => {
   test('View brands products', regressionTestDetails('@catalog'), async ({ productsPage }) => {
     await test.step('Open brand - Polo', async () => {
       await productsPage.leftSidebar.openBrand('Polo');
-      const productsCards = await productsPage.productCards.count();
+      const productsCards = productsPage.productCards;
 
       await expect(productsPage.title).toHaveText('Brand -  Polo Products');
-      expect(productsCards).toBe(6);
+      await expect(productsCards.root).toHaveCount(6);
     });
 
     await test.step('Open brand - H&M', async () => {
       await productsPage.leftSidebar.openBrand('H&M');
-      const productsCards = await productsPage.productCards.count();
+      const productsCards = productsPage.productCards;
 
       await expect(productsPage.title).toHaveText('Brand -  H&M Products');
-      expect(productsCards).toBe(5);
+      await expect(productsCards.root).toHaveCount(5);
     });
   });
 });

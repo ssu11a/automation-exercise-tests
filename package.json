@@ -3,11 +3,17 @@
     "playwright": "^1.62.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.62.0",
     "@types/node": "^26.1.1",
     "allure": "^3.18.0",
-    "allure-playwright": "^3.12.2"
+    "allure-playwright": "^3.12.2",
+    "eslint": "^10.11.0",
+    "eslint-plugin-playwright": "^2.12.0",
+    "globals": "^17.12.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0"
   },
   "scripts": {
     "test:smoke": "playwright test tests/smoke --project=chromium",
@@ -21,6 +27,10 @@
     "test:regression:report": "node scripts/allure.cjs run test:regression",
     "test:regression:report:open": "node scripts/allure.cjs run test:regression --open",
     "test:all:report": "node scripts/allure.cjs run test:all",
-    "test:all:report:open": "node scripts/allure.cjs run test:all --open"
+    "test:all:report:open": "node scripts/allure.cjs run test:all --open",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck"
   }
 }

@@ -10,7 +10,6 @@ export class HomePage extends BasePage {
   readonly recomendedItems: Locator;
   readonly recomendedItemsCards: ProductCardComponent;
   readonly scrollUpBtn: Locator;
-  readonly headerTitle: Locator;
 
   constructor(page: Page) {
     super(page);

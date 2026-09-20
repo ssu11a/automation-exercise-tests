@@ -1,7 +1,7 @@
 import { Locator } from 'playwright';
 
 export class ProductCardComponent {
-  private readonly root: Locator;
+  readonly root: Locator;
   readonly name: Locator;
   readonly addToCartBtn: Locator;
   readonly addToCartRecomendedProductBtn: Locator;
