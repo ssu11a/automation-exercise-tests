@@ -1,4 +1,4 @@
-import { test, expect } from '@fixtures';
+import { test, expect, regressionTestDetails } from '@fixtures';
 import { createRegisterUserData } from '@testData';
 
 test.beforeEach(async ({ homePage, loginPage }) => {
@@ -15,7 +15,7 @@ test.beforeEach(async ({ homePage, loginPage }) => {
 });
 
 test.describe('User registration', () => {
-  test('Register user', async ({
+  test('Register user', regressionTestDetails('@auth'), async ({
     homePage,
     loginPage,
     signupPage,
@@ -49,7 +49,7 @@ test.describe('User registration', () => {
     });
   });
 
-  test('Register User with existing email', async ({
+  test('Register User with existing email', regressionTestDetails('@auth'), async ({
     loginPage,
     registeredUser
   }) => {
@@ -63,7 +63,7 @@ test.describe('User registration', () => {
 });
 
 test.describe('User authentication', () => {
-  test('Login User with correct email and password', async ({
+  test('Login User with correct email and password', regressionTestDetails('@auth'), async ({
     homePage,
     loginPage,
     registeredUser
@@ -76,7 +76,7 @@ test.describe('User authentication', () => {
     });
   });
 
-  test('Login User with incorrect email and password', async ({
+  test('Login User with incorrect email and password', regressionTestDetails('@auth'), async ({
     loginPage
   }) => {
     await test.step('Login user', async () => {
@@ -88,7 +88,7 @@ test.describe('User authentication', () => {
     });
   });
 
-  test('Logout User', async ({
+  test('Logout User', regressionTestDetails('@auth'), async ({
     homePage,
     loginPage,
     registeredUser

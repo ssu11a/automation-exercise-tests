@@ -1,4 +1,4 @@
-import { test, expect } from "@fixtures";
+import { test, expect, regressionTestDetails } from "@fixtures";
 import {
   createExpectedAddress,
   createRegisterUserData
@@ -19,7 +19,7 @@ test.describe('Order cases', async () => {
     quantity: 1,
   };
 
-  test('Verify address details in checkout page', async ({
+  test('Verify address details in checkout page', regressionTestDetails('@checkout', '@auth'), async ({
     homePage,
     loginPage,
     signupPage,
@@ -67,7 +67,7 @@ test.describe('Order cases', async () => {
     });
   });
 
-  test('Download Invoice after purchase order', async ({
+  test('Download Invoice after purchase order', regressionTestDetails('@checkout', '@invoice'), async ({
     homePage,
     loginPage,
     signupPage,
@@ -144,7 +144,7 @@ test.describe('Order cases', async () => {
     });
   });
 
-  test('Place Order: Register while Checkout', async ({
+  test('Place Order: Register while Checkout', regressionTestDetails('@checkout', '@auth'), async ({
     homePage,
     cartPage,
     loginPage,
@@ -226,7 +226,7 @@ test.describe('Order cases', async () => {
     });
   });
 
-  test('Place Order: Login before Checkout', async ({
+  test('Place Order: Login before Checkout', regressionTestDetails('@checkout', '@auth'), async ({
     homePage,
     loginPage,
     cartPage,
@@ -271,7 +271,7 @@ test.describe('Order cases', async () => {
     });
   });
 
-  test('Remove products from cart', async ({
+  test('Remove products from cart', regressionTestDetails('@cart'), async ({
     homePage,
     cartPage
   }) => {

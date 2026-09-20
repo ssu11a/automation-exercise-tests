@@ -9,5 +9,18 @@
     "allure": "^3.18.0",
     "allure-playwright": "^3.12.2"
   },
-  "scripts": {}
+  "scripts": {
+    "test:smoke": "playwright test tests/smoke --project=chromium",
+    "test:regression": "playwright test tests/regression",
+    "test:all": "playwright test",
+    "allure:clean": "node scripts/allure.cjs clean",
+    "allure:generate": "node scripts/allure.cjs generate",
+    "allure:open": "node scripts/allure.cjs open",
+    "test:smoke:report": "node scripts/allure.cjs run test:smoke",
+    "test:smoke:report:open": "node scripts/allure.cjs run test:smoke --open",
+    "test:regression:report": "node scripts/allure.cjs run test:regression",
+    "test:regression:report:open": "node scripts/allure.cjs run test:regression --open",
+    "test:all:report": "node scripts/allure.cjs run test:all",
+    "test:all:report:open": "node scripts/allure.cjs run test:all --open"
+  }
 }

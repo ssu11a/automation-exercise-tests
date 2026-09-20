@@ -1,4 +1,4 @@
-import { test, expect } from "@fixtures";
+import { test, expect, regressionTestDetails } from "@fixtures";
 
 test.beforeEach(async ({ homePage }) => {
   await test.step('Open the home page', async () => {
@@ -8,7 +8,7 @@ test.beforeEach(async ({ homePage }) => {
 });
 
 test.describe('Subscription cases', async () => {
-  test('Verify Subscription in home page', async ({ homePage }) => {
+  test('Verify Subscription in home page', regressionTestDetails('@subscription'), async ({ homePage }) => {
     await test.step('Scroll down to footer', async () => {
       await homePage.subscribeInput.scrollIntoViewIfNeeded();
       await expect(homePage.subscribeTitle).toBeVisible();
@@ -20,7 +20,7 @@ test.describe('Subscription cases', async () => {
     });
   });
 
-  test('Verify Subscription in Cart page', async ({ homePage, cartPage }) => {
+  test('Verify Subscription in Cart page', regressionTestDetails('@subscription', '@cart'), async ({ homePage, cartPage }) => {
     await test.step('Open the cart page', async () => {
       await homePage.openNavBarOption('cart');
       await expect(cartPage.emptyCartSpan).toBeVisible();
@@ -32,7 +32,7 @@ test.describe('Subscription cases', async () => {
     });
   });
 
-  test('Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ homePage }) => {
+  test('Verify Scroll Up using "Arrow" button and Scroll Down functionality', regressionTestDetails('@navigation'), async ({ homePage }) => {
     await test.step('Scroll down to bottom of the page', async () => {
       await homePage.subscribeTitle.scrollIntoViewIfNeeded();
       await expect(homePage.subscribeTitle).toBeInViewport();
@@ -45,7 +45,7 @@ test.describe('Subscription cases', async () => {
     });
   });
 
-  test('Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ homePage }) => {
+  test('Verify Scroll Up without "Arrow" button and Scroll Down functionality', regressionTestDetails('@navigation'), async ({ homePage }) => {
     await test.step('Scroll down to bottom of the page', async () => {
       await homePage.subscribeTitle.scrollIntoViewIfNeeded();
       await expect(homePage.subscribeTitle).toBeInViewport();

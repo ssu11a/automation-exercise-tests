@@ -1,4 +1,4 @@
-import { test, expect } from "@fixtures";
+import { test, expect, regressionTestDetails } from "@fixtures";
 import { createReviewData } from "@testData";
 
 test.beforeEach(async ({ homePage }) => {
@@ -16,7 +16,7 @@ test.describe('Actions with products', () => {
     });
   });
 
-  test('Verify All Products and product detail page', async ({
+  test('Verify All Products and product detail page', regressionTestDetails('@catalog'), async ({
     productsPage,
     productDetailsPage
   }) => {
@@ -41,7 +41,7 @@ test.describe('Actions with products', () => {
     });
   });
 
-  test('Search product', async ({ productsPage }) => {
+  test('Search product', regressionTestDetails('@catalog'), async ({ productsPage }) => {
     await test.step('Enter product name in search input and click search button', async () => {
       await productsPage.searchProduct('Blue Top');
       await expect(productsPage.searchedProductsTitle).toBeVisible();
@@ -49,7 +49,7 @@ test.describe('Actions with products', () => {
     });
   });
 
-  test('Add Products in Cart', async ({ productsPage, cartPage }) => {
+  test('Add Products in Cart', regressionTestDetails('@catalog', '@cart'), async ({ productsPage, cartPage }) => {
     const expectedProducts = [
       { name: 'Blue Top', price: 500, quantity: 1 },
       { name: 'Men Tshirt', price: 400, quantity: 1 }
@@ -69,7 +69,7 @@ test.describe('Actions with products', () => {
     });
   });
 
-  test('Verify Product quantity in Cart', async ({ productsPage, productDetailsPage, cartPage }) => {
+  test('Verify Product quantity in Cart', regressionTestDetails('@catalog', '@cart'), async ({ productsPage, productDetailsPage, cartPage }) => {
     const expectedProduct = {
       name: 'Blue Top',
       price: 500,
@@ -92,7 +92,7 @@ test.describe('Actions with products', () => {
     });
   });
 
-  test('Search Products and Verify Cart After Login', async ({
+  test('Search Products and Verify Cart After Login', regressionTestDetails('@catalog', '@cart', '@auth'), async ({
     productsPage,
     cartPage,
     loginPage,
@@ -152,7 +152,7 @@ test.describe('Actions with products', () => {
       }
     });
   });
-  test('Add review on product', async ({productsPage, productDetailsPage}) => {
+  test('Add review on product', regressionTestDetails('@catalog'), async ({productsPage, productDetailsPage}) => {
     await test.step('Open card details page', async () => {
       await productsPage.productCards.openDetails('Blue Top');
 
@@ -170,7 +170,7 @@ test.describe('Actions with products', () => {
 });
 
 test.describe('Products categories and brands', () => {
-  test('View categories products', async ({ productsPage }) => {
+  test('View categories products', regressionTestDetails('@catalog'), async ({ productsPage }) => {
     await test.step('Open subcategory - dress', async () => {
       await productsPage.leftSidebar.openSubcategory('Women', 'Dress');
       const productsCards = await productsPage.productCards.count();
@@ -188,7 +188,7 @@ test.describe('Products categories and brands', () => {
     });
   });
 
-  test('View brands products', async ({ productsPage }) => {
+  test('View brands products', regressionTestDetails('@catalog'), async ({ productsPage }) => {
     await test.step('Open brand - Polo', async () => {
       await productsPage.leftSidebar.openBrand('Polo');
       const productsCards = await productsPage.productCards.count();
@@ -207,7 +207,7 @@ test.describe('Products categories and brands', () => {
   });
 });
 
-test('Add to cart from recommended items', async ({ homePage, cartPage }) => {
+test('Add to cart from recommended items', regressionTestDetails('@catalog', '@cart'), async ({ homePage, cartPage }) => {
   const expectedProduct = {
     name: 'Blue Top',
     price: 500,

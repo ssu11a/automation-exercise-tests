@@ -1,13 +1,13 @@
 import { resolve } from 'node:path';
-import { test, expect } from '@fixtures';
+import { test, expect, regressionTestDetails } from '@fixtures';
 import { createContactUsData } from '@testData';
 
 const CONTACT_US_ATTACHMENT = resolve(
   __dirname,
-  '../testData/attachments/contactUsFile.txt'
+  '../../testData/attachments/contactUsFile.txt'
 );
 
-test('Contact Us Form', async ({
+test('Contact Us Form', regressionTestDetails('@support'), async ({
   homePage,
   contactUsPage
 }) => {

@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-
+import os from 'node:os';
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -24,7 +24,17 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list', { open: 'never' }],
-    ['allure-playwright', { outputFolder: 'allure-results' }]
+    ['allure-playwright', {
+      resultsDir: 'allure-results',
+      detail: false,
+      environmentInfo: {
+        target_url: 'https://automationexercise.com',
+        os_platform: os.platform(),
+        os_release: os.release(),
+        os_version: os.version(),
+        node_version: process.version
+      }
+    }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
