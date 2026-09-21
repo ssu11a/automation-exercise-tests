@@ -49,6 +49,7 @@ test.describe('Actions with products', () => {
     });
   });
 
+  // eslint-disable-next-line playwright/expect-expect
   test('Add Products in Cart', regressionTestDetails('@catalog', '@cart'), async ({ productsPage, cartPage }) => {
     const expectedProducts = [
       { name: 'Blue Top', price: 500, quantity: 1 },

@@ -127,9 +127,7 @@ test.describe('Order cases', () => {
       expect(download.suggestedFilename()).toBe('invoice.txt');
       
       const invoicePath = await download.path();
-      if (!invoicePath) {
-        throw new Error('Invoice download path is unavailable');
-      }
+
       const invoiceText = await readFile(invoicePath, 'utf8');
 
       const { firstName, lastName } = userData.signupForm.addressInfo;
@@ -217,9 +215,7 @@ test.describe('Order cases', () => {
       const download = await downloadPromise;
       expect(download.suggestedFilename()).toBe('invoice.txt');
       const invoicePath = await download.path();
-      if (!invoicePath) {
-        throw new Error('Invoice download path is unavailable');
-      }
+
       const invoiceText = await readFile(invoicePath, 'utf8');
 
       const { firstName, lastName } = registerUserData.signupForm.addressInfo;
