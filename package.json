@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test:smoke": "playwright test tests/smoke --project=chromium",
+    "test:regression:chromium": "playwright test tests/regression --project=chromium",
     "test:regression": "playwright test tests/regression",
     "test:all": "playwright test",
     "allure:clean": "node scripts/allure.cjs clean",

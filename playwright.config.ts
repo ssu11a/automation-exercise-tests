@@ -24,6 +24,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list', { open: 'never' }],
+    ['html', { open: 'never', outputFolder: 'playwright-report' }],
     ['allure-playwright', {
       resultsDir: 'allure-results',
       detail: false,
@@ -43,6 +44,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     testIdAttribute: 'data-qa',
     baseURL: 'https://automationexercise.com'
   },
