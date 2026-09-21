@@ -1,5 +1,8 @@
 # Automation Exercise: Playwright AQA Portfolio
 
+[![E2E tests](https://github.com/ssu11a/automation-exercise-tests/actions/workflows/playwright.yml/badge.svg?branch=main)](https://github.com/ssu11a/automation-exercise-tests/actions/workflows/playwright.yml)
+[Allure report](https://ssu11a.github.io/automation-exercise-tests/)
+
 End-to-end UI and API contract tests for the public [Automation Exercise](https://automationexercise.com/) practice site. The repository demonstrates a maintainable TypeScript + Playwright test framework without access to the application's source code, database, or private environments.
 
 ## Coverage
@@ -45,12 +48,6 @@ npm run check
 npm run test:smoke
 npm run test:api
 npm run test:regression
-```
-
-By default tests target `https://automationexercise.com`. Point the suite at another compatible, authorised environment with `BASE_URL`:
-
-```bash
-BASE_URL=https://example.test npm run test:api
 ```
 
 Generate an Allure report with `npm run test:api:report`, `npm run test:smoke:report`, `npm run test:regression:report`, or `npm run test:all:report`.
