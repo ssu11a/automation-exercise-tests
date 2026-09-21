@@ -1,5 +1,6 @@
 import { expect, test as base } from '@playwright/test';
-import { createRegisterUserData } from '@testData';
+import { AutomationExerciseApi } from '@api';
+import { createRegisterUserData, toAccountRequest } from '@testData';
 
 interface RegisteredUserFixtures {
   registeredUser: ReturnType<typeof createRegisterUserData>;
@@ -8,33 +9,12 @@ interface RegisteredUserFixtures {
 export const test = base.extend<RegisteredUserFixtures>({
   registeredUser: async ({ request }, use) => {
     const user = createRegisterUserData();
-    const { userName, email, password, signupForm } = user;
-    const { accountInfo, addressInfo } = signupForm;
+    const { email, password } = user;
+    const automationApi = new AutomationExerciseApi(request);
 
-    const createResponse = await request.post('/api/createAccount', {
-      form: {
-        name: userName,
-        email,
-        password,
-        title: accountInfo.title ?? '',
-        birth_date: accountInfo.birthDate?.day ?? '',
-        birth_month: accountInfo.birthDate?.month ?? '',
-        birth_year: accountInfo.birthDate?.year ?? '',
-        firstname: addressInfo.firstName,
-        lastname: addressInfo.lastName,
-        company: addressInfo.company ?? '',
-        address1: addressInfo.address,
-        address2: addressInfo.secondAddress ?? '',
-        country: addressInfo.country,
-        zipcode: addressInfo.zipcode,
-        state: addressInfo.state,
-        city: addressInfo.city,
-        mobile_number: addressInfo.mobileNumber
-      }
-    });
-    const createResult: unknown = await createResponse.json();
+    const createResult = await automationApi.createAccount(toAccountRequest(user));
 
-    expect(createResult).toMatchObject({
+    expect(createResult.body).toMatchObject({
       responseCode: 201,
       message: 'User created!'
     });
@@ -42,12 +22,9 @@ export const test = base.extend<RegisteredUserFixtures>({
     try {
       await use(user);
     } finally {
-      const deleteResponse = await request.delete('/api/deleteAccount', {
-        form: { email, password }
-      });
-      const deleteResult: unknown = await deleteResponse.json();
+      const deleteResult = await automationApi.deleteAccount({ email, password });
 
-      expect(deleteResult).toMatchObject({
+      expect(deleteResult.body).toMatchObject({
         responseCode: 200,
         message: 'Account deleted!'
       });

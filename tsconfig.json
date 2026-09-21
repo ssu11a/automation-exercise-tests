@@ -11,6 +11,8 @@
       "@components/*": ["components/*"],
       "@fixtures": ["fixtures/index.ts"],
       "@fixtures/*": ["fixtures/*"],
+      "@api": ["api/index.ts"],
+      "@api/*": ["api/*"],
       "@testData": ["testData/index.ts"],
       "@testData/*": ["testData/*"]
     },

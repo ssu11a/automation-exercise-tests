@@ -47,24 +47,31 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     testIdAttribute: 'data-qa',
-    baseURL: 'https://automationexercise.com'
+    baseURL: process.env.BASE_URL ?? 'https://automationexercise.com'
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
+      testIgnore: /.*\/api\/.*\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testIgnore: /.*\/api\/.*\.spec\.ts/,
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testIgnore: /.*\/api\/.*\.spec\.ts/,
       use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'api',
+      testMatch: /.*\/api\/.*\.spec\.ts/
     },
 
     /* Test against mobile viewports. */

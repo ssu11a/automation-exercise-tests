@@ -1,12 +1,47 @@
 import { fakerEN as faker } from "@faker-js/faker";
+import type { AccountRequest, Credentials } from '@api';
 import type { SignupFormData } from "@pages";
 
-interface RegisterUserData {
+export interface RegisterUserData {
   userName: string;
   email: string;
   password: string;
   signupForm: SignupFormData;
 }
+
+export const toAccountRequest = ({
+  userName,
+  email,
+  password,
+  signupForm
+}: RegisterUserData): AccountRequest => {
+  const { accountInfo, addressInfo } = signupForm;
+
+  return {
+    name: userName,
+    email,
+    password,
+    title: accountInfo.title ?? '',
+    birth_date: String(accountInfo.birthDate?.day ?? ''),
+    birth_month: accountInfo.birthDate?.month ?? '',
+    birth_year: String(accountInfo.birthDate?.year ?? ''),
+    firstname: addressInfo.firstName,
+    lastname: addressInfo.lastName,
+    company: addressInfo.company ?? '',
+    address1: addressInfo.address,
+    address2: addressInfo.secondAddress ?? '',
+    country: addressInfo.country,
+    zipcode: addressInfo.zipcode,
+    state: addressInfo.state,
+    city: addressInfo.city,
+    mobile_number: addressInfo.mobileNumber
+  };
+};
+
+export const toCredentials = ({ email, password }: RegisterUserData): Credentials => ({
+  email,
+  password
+});
 
 export const createExpectedAddress = ({ accountInfo, addressInfo }: SignupFormData) => ({
   name: `${accountInfo.title ? `${accountInfo.title}. ` : ''}${addressInfo.firstName} ${addressInfo.lastName}`,

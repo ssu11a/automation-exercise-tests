@@ -27,10 +27,12 @@ test.describe('Order cases', () => {
     accountCreatedPage,
     cartPage,
     checkoutPage,
-    accountDeletedPage
+    accountDeletedPage,
+    disposableAccounts
   }) => {
     const userData = createRegisterUserData();
     const expectedAddress = createExpectedAddress(userData.signupForm);
+    disposableAccounts.track({ email: userData.email, password: userData.password });
 
     await test.step('Register new user', async () => {
       await homePage.openNavBarOption('login');
@@ -77,11 +79,13 @@ test.describe('Order cases', () => {
     checkoutPage,
     paymentPage,
     paymentDonePage,
-    accountDeletedPage
+    accountDeletedPage,
+    disposableAccounts
   }) => {
     const userData = createRegisterUserData();
     const expectedAddress = createExpectedAddress(userData.signupForm);
     const paymentData = createPaymentData(userData.signupForm.addressInfo);
+    disposableAccounts.track({ email: userData.email, password: userData.password });
 
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProduct.name);
@@ -151,11 +155,16 @@ test.describe('Order cases', () => {
     accountCreatedPage,
     checkoutPage,
     paymentPage,
-    paymentDonePage
+    paymentDonePage,
+    disposableAccounts
   }) => {
     const registerUserData = createRegisterUserData();
     const paymentData = createPaymentData(registerUserData.signupForm.addressInfo);
     const expectedAddress = createExpectedAddress(registerUserData.signupForm);
+    disposableAccounts.track({
+      email: registerUserData.email,
+      password: registerUserData.password
+    });
 
     await test.step('Add product to cart', async () => {
       await homePage.productCards.addToCart(expectedProduct.name);

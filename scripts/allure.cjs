@@ -10,6 +10,7 @@ const allureCommand = process.platform === 'win32' ? 'allure.cmd' : 'allure';
 const supportedTestScripts = new Set([
   'test:smoke',
   'test:regression',
+  'test:api',
   'test:all'
 ]);
 

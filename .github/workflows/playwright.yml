@@ -9,7 +9,7 @@ on:
     - cron: '0 2 * * *'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: e2e-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -54,6 +54,20 @@ jobs:
             playwright-report/
           if-no-files-found: ignore
           retention-days: 30
+
+  api:
+    name: API contract tests
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run test:api
 
   regression:
     name: Regression (${{ github.event_name == 'schedule' && 'all browsers' || 'Chromium' }})
@@ -100,6 +114,8 @@ jobs:
     if: ${{ always() && (github.event_name == 'push' || github.event_name == 'schedule') && needs.regression.result != 'cancelled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

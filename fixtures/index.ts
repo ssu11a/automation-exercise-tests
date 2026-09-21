@@ -1,2 +1,2 @@
 export { expect, test } from './test';
-export { regressionTestDetails } from './testDetails';
+export { apiTestDetails, regressionTestDetails } from './testDetails';

@@ -1,17 +1,15 @@
 {
-  "dependencies": {
-    "playwright": "^1.62.0"
-  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.5.0",
-    "@playwright/test": "^1.62.0",
+    "@playwright/test": "1.62.0",
     "@types/node": "^26.1.1",
     "allure": "^3.18.0",
     "allure-playwright": "^3.12.2",
     "eslint": "^10.11.0",
     "eslint-plugin-playwright": "^2.12.0",
     "globals": "^17.12.0",
+    "playwright": "1.62.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.0"
   },
@@ -19,6 +17,7 @@
     "test:smoke": "playwright test tests/smoke --project=chromium",
     "test:regression:chromium": "playwright test tests/regression --project=chromium",
     "test:regression": "playwright test tests/regression",
+    "test:api": "playwright test tests/api --project=api",
     "test:all": "playwright test",
     "allure:clean": "node scripts/allure.cjs clean",
     "allure:generate": "node scripts/allure.cjs generate",
@@ -27,6 +26,8 @@
     "test:smoke:report:open": "node scripts/allure.cjs run test:smoke --open",
     "test:regression:report": "node scripts/allure.cjs run test:regression",
     "test:regression:report:open": "node scripts/allure.cjs run test:regression --open",
+    "test:api:report": "node scripts/allure.cjs run test:api",
+    "test:api:report:open": "node scripts/allure.cjs run test:api --open",
     "test:all:report": "node scripts/allure.cjs run test:all",
     "test:all:report:open": "node scripts/allure.cjs run test:all --open",
     "lint": "eslint .",

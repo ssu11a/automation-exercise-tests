@@ -20,9 +20,11 @@ test.describe('User registration', () => {
     loginPage,
     signupPage,
     accountCreatedPage,
-    accountDeletedPage
+    accountDeletedPage,
+    disposableAccounts
   }) => {
     const { userName, email, signupForm } = createRegisterUserData();
+    disposableAccounts.track({ email, password: signupForm.accountInfo.password });
 
     await test.step('Start registration with a new user', async () => {
       await loginPage.signUp({ userName, email });
