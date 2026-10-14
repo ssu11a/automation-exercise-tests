@@ -1,1 +1,1 @@
-{"id":"29dfbed5b26b3fecc8ae62080985a3b4","fullName":"regression/cart.spec.ts › Order cases › Place Order: Register while Checkout","name":"Place Order: Register while Checkout","status":"broken","testResultsByEnv":{"default":"7562c6dfadc25c0ac2cde8db813be6c9"}}
+{"id":"29dfbed5b26b3fecc8ae62080985a3b4","fullName":"regression/cart.spec.ts › Order cases › Place Order: Register while Checkout","name":"Place Order: Register while Checkout","status":"failed","testResultsByEnv":{"default":"9c3728d2d3cfbe039ae0d38cdc750697"}}
