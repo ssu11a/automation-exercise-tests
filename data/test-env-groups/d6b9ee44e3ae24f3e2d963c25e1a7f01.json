@@ -1,1 +1,1 @@
-{"id":"d6b9ee44e3ae24f3e2d963c25e1a7f01","fullName":"regression/products.spec.ts › Products categories and brands › View brands products","name":"View brands products","status":"passed","testResultsByEnv":{"default":"e545c8476581ebcf598f17f2f85d875a"}}
+{"id":"d6b9ee44e3ae24f3e2d963c25e1a7f01","fullName":"regression/products.spec.ts › Products categories and brands › View brands products","name":"View brands products","status":"failed","testResultsByEnv":{"default":"075b7e36057899731ff47789e77350c1"}}
