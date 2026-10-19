@@ -1,1 +1,1 @@
-{"id":"e154e81f7fd22c8e51c49dfd82c7ce8b","fullName":"regression/subscription.spec.ts › Subscription cases › Verify Subscription in home page","name":"Verify Subscription in home page","status":"passed","testResultsByEnv":{"default":"f3fcd2f5834356f3f664cc715cb7d30e"}}
+{"id":"e154e81f7fd22c8e51c49dfd82c7ce8b","fullName":"regression/subscription.spec.ts › Subscription cases › Verify Subscription in home page","name":"Verify Subscription in home page","status":"failed","testResultsByEnv":{"default":"2dc43fdbea19ae0df1f71ead2d9f07e4"}}

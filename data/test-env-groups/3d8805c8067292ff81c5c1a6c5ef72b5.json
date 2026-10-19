@@ -1,1 +1,1 @@
-{"id":"3d8805c8067292ff81c5c1a6c5ef72b5","fullName":"regression/testCases.spec.ts › Verify Test Cases Page","name":"Verify Test Cases Page","status":"passed","testResultsByEnv":{"default":"92032ebc322e3ef23d0aa62544fad431"}}
+{"id":"3d8805c8067292ff81c5c1a6c5ef72b5","fullName":"regression/testCases.spec.ts › Verify Test Cases Page","name":"Verify Test Cases Page","status":"failed","testResultsByEnv":{"default":"845a5125a3326353a30e14745fcd949e"}}
