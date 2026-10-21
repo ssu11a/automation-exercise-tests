@@ -1,0 +1,181 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: regression/userAccount.spec.ts >> User registration >> Register User with existing email
+- Location: tests/regression/userAccount.spec.ts:54:7
+
+# Error details
+
+```
+SyntaxError: Unexpected token '<', "<h2>This w"... is not valid JSON
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - generic [ref=f6e5]:
+      - link [ref=f6e8] [cursor=pointer]:
+        - /url: /
+        - img "Website for automation practice" [ref=f6e9]
+      - list [ref=f6e12]:
+        - listitem [ref=f6e13]:
+          - link " Home" [ref=f6e14] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f6e15]: 
+            - text: Home
+        - listitem [ref=f6e16]:
+          - link " Products" [ref=f6e17] [cursor=pointer]:
+            - /url: /products
+            - generic [ref=f6e18]: 
+            - text: Products
+        - listitem [ref=f6e19]:
+          - link " Cart" [ref=f6e20] [cursor=pointer]:
+            - /url: /view_cart
+            - generic [ref=f6e21]: 
+            - text: Cart
+        - listitem [ref=f6e22]:
+          - link " Signup / Login" [ref=f6e23] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=f6e24]: 
+            - text: Signup / Login
+        - listitem [ref=f6e25]:
+          - link " Test Cases" [ref=f6e26] [cursor=pointer]:
+            - /url: /test_cases
+            - generic [ref=f6e27]: 
+            - text: Test Cases
+        - listitem [ref=f6e28]:
+          - link " API Testing" [ref=f6e29] [cursor=pointer]:
+            - /url: /api_list
+            - generic [ref=f6e30]: 
+            - text: API Testing
+        - listitem [ref=f6e31]:
+          - link " Video Tutorials" [ref=f6e32] [cursor=pointer]:
+            - /url: https://www.youtube.com/c/AutomationExercise
+            - generic [ref=f6e33]: 
+            - text: Video Tutorials
+        - listitem [ref=f6e34]:
+          - link " Contact us" [ref=f6e35] [cursor=pointer]:
+            - /url: /contact_us
+            - generic [ref=f6e36]: 
+            - text: Contact us
+  - generic [ref=f6e39]:
+    - generic [ref=f6e41]:
+      - heading "Login to your account" [level=2] [ref=f6e42]
+      - generic [ref=f6e43]:
+        - textbox "Email Address" [ref=f6e44]
+        - textbox "Password" [ref=f6e45]
+        - button "Login" [ref=f6e46] [cursor=pointer]
+    - heading "OR" [level=2] [ref=f6e48]
+    - generic [ref=f6e50]:
+      - heading "New User Signup!" [level=2] [ref=f6e51]
+      - generic [ref=f6e52]:
+        - textbox "Name" [ref=f6e53]
+        - textbox "Email Address" [ref=f6e54]
+        - button "Signup" [ref=f6e55] [cursor=pointer]
+  - contentinfo [ref=f6e56]:
+    - generic [ref=f6e61]:
+      - heading "Subscription" [level=2] [ref=f6e62]
+      - generic [ref=f6e63]:
+        - textbox "Your email address" [ref=f6e64]
+        - button "" [ref=f6e65] [cursor=pointer]
+        - paragraph [ref=f6e67]: Get the most recent updates from our site and be updated your self...
+    - paragraph [ref=f6e71]: Copyright © 2021 All rights reserved
+  - text: 
+```
+
+# Test source
+
+```ts
+  1  | import type { APIRequestContext, APIResponse } from '@playwright/test';
+  2  | import type {
+  3  |   AccountRequest,
+  4  |   ApiMessageResponse,
+  5  |   ApiResult,
+  6  |   BrandsResponse,
+  7  |   Credentials,
+  8  |   ProductsResponse,
+  9  |   UserDetailResponse
+  10 | } from './types';
+  11 | 
+  12 | export class AutomationExerciseApi {
+  13 |   constructor(private readonly request: APIRequestContext) {}
+  14 | 
+  15 |   async getProducts(): Promise<ApiResult<ProductsResponse>> {
+  16 |     return this.parse(await this.request.get('/api/productsList'));
+  17 |   }
+  18 | 
+  19 |   async postProducts(): Promise<ApiResult<ApiMessageResponse>> {
+  20 |     return this.parse(await this.request.post('/api/productsList'));
+  21 |   }
+  22 | 
+  23 |   async getBrands(): Promise<ApiResult<BrandsResponse>> {
+  24 |     return this.parse(await this.request.get('/api/brandsList'));
+  25 |   }
+  26 | 
+  27 |   async putBrands(): Promise<ApiResult<ApiMessageResponse>> {
+  28 |     return this.parse(await this.request.put('/api/brandsList'));
+  29 |   }
+  30 | 
+  31 |   async searchProducts(searchProduct: string): Promise<ApiResult<ProductsResponse>> {
+  32 |     return this.parse(await this.request.post('/api/searchProduct', {
+  33 |       form: { search_product: searchProduct }
+  34 |     }));
+  35 |   }
+  36 | 
+  37 |   async searchProductsWithoutTerm(): Promise<ApiResult<ApiMessageResponse>> {
+  38 |     return this.parse(await this.request.post('/api/searchProduct'));
+  39 |   }
+  40 | 
+  41 |   async verifyLogin(credentials: Credentials): Promise<ApiResult<ApiMessageResponse>> {
+  42 |     return this.parse(await this.request.post('/api/verifyLogin', {
+  43 |       form: credentials
+  44 |     }));
+  45 |   }
+  46 | 
+  47 |   async verifyLoginWithoutEmail(password: string): Promise<ApiResult<ApiMessageResponse>> {
+  48 |     return this.parse(await this.request.post('/api/verifyLogin', {
+  49 |       form: { password }
+  50 |     }));
+  51 |   }
+  52 | 
+  53 |   async deleteVerifyLogin(): Promise<ApiResult<ApiMessageResponse>> {
+  54 |     return this.parse(await this.request.delete('/api/verifyLogin'));
+  55 |   }
+  56 | 
+  57 |   async createAccount(account: AccountRequest): Promise<ApiResult<ApiMessageResponse>> {
+  58 |     return this.parse(await this.request.post('/api/createAccount', { form: account }));
+  59 |   }
+  60 | 
+  61 |   async deleteAccount(credentials: Credentials): Promise<ApiResult<ApiMessageResponse>> {
+  62 |     return this.parse(await this.request.delete('/api/deleteAccount', {
+  63 |       form: credentials
+  64 |     }));
+  65 |   }
+  66 | 
+  67 |   async updateAccount(account: AccountRequest): Promise<ApiResult<ApiMessageResponse>> {
+  68 |     return this.parse(await this.request.put('/api/updateAccount', { form: account }));
+  69 |   }
+  70 | 
+  71 |   async getUserDetailByEmail(email: string): Promise<ApiResult<UserDetailResponse>> {
+  72 |     return this.parse(await this.request.get('/api/getUserDetailByEmail', {
+  73 |       params: { email }
+  74 |     }));
+  75 |   }
+  76 | 
+  77 |   private async parse<T>(response: APIResponse): Promise<ApiResult<T>> {
+  78 |     return {
+  79 |       status: response.status(),
+> 80 |       body: await response.json() as T
+     |             ^ SyntaxError: Unexpected token '<', "<h2>This w"... is not valid JSON
+  81 |     };
+  82 |   }
+  83 | }
+  84 | 
+```
