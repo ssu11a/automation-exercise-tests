@@ -1,1 +1,1 @@
-{"id":"f2ee8f38a6f53478ba31168b505a85e0","fullName":"regression/userAccount.spec.ts › User registration › Register User with existing email","name":"Register User with existing email","status":"failed","testResultsByEnv":{"default":"93c1fe30e9b3445ecedb7a1a402eebb5"}}
+{"id":"f2ee8f38a6f53478ba31168b505a85e0","fullName":"regression/userAccount.spec.ts › User registration › Register User with existing email","name":"Register User with existing email","status":"passed","testResultsByEnv":{"default":"b5d9c296095b247fac19e85ffc7ce0a4"}}
