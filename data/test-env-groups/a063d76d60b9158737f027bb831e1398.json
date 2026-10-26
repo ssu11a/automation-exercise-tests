@@ -1,1 +1,1 @@
-{"id":"a063d76d60b9158737f027bb831e1398","fullName":"regression/products.spec.ts › Actions with products › Search Products and Verify Cart After Login","name":"Search Products and Verify Cart After Login","status":"passed","testResultsByEnv":{"default":"f4cfa3194678be02211598084cc93d79"}}
+{"id":"a063d76d60b9158737f027bb831e1398","fullName":"regression/products.spec.ts › Actions with products › Search Products and Verify Cart After Login","name":"Search Products and Verify Cart After Login","status":"failed","testResultsByEnv":{"default":"147ea6f155f8a70e79ef5c198aabee6a"}}
