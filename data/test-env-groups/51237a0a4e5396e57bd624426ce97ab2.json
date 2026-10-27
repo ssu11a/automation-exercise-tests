@@ -1,1 +1,1 @@
-{"id":"51237a0a4e5396e57bd624426ce97ab2","fullName":"regression/cart.spec.ts › Order cases › Download Invoice after purchase order","name":"Download Invoice after purchase order","status":"failed","testResultsByEnv":{"default":"74911c73e476cc1bcf0c5ec9263b98d2"}}
+{"id":"51237a0a4e5396e57bd624426ce97ab2","fullName":"regression/cart.spec.ts › Order cases › Download Invoice after purchase order","name":"Download Invoice after purchase order","status":"broken","testResultsByEnv":{"default":"5499f8478f514bc165c0c69136d4dd51"}}
