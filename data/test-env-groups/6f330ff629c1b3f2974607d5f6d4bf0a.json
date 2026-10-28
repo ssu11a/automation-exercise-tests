@@ -1,1 +1,1 @@
-{"id":"6f330ff629c1b3f2974607d5f6d4bf0a","fullName":"regression/products.spec.ts › Actions with products › Verify Product quantity in Cart","name":"Verify Product quantity in Cart","status":"passed","testResultsByEnv":{"default":"a2df2204ec198077566dfd8782dbe31d"}}
+{"id":"6f330ff629c1b3f2974607d5f6d4bf0a","fullName":"regression/products.spec.ts › Actions with products › Verify Product quantity in Cart","name":"Verify Product quantity in Cart","status":"failed","testResultsByEnv":{"default":"8718a423d61fc6db28eeebd50cb1e042"}}

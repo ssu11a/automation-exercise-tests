@@ -1,1 +1,1 @@
-{"id":"cc51f2c176e9b0843068fcbbb9628a2d","fullName":"regression/cart.spec.ts › Order cases › Place Order: Login before Checkout","name":"Place Order: Login before Checkout","status":"passed","testResultsByEnv":{"default":"2aae756a505ecd786c4961e3b11e0b27"}}
+{"id":"cc51f2c176e9b0843068fcbbb9628a2d","fullName":"regression/cart.spec.ts › Order cases › Place Order: Login before Checkout","name":"Place Order: Login before Checkout","status":"failed","testResultsByEnv":{"default":"9a5a157988ddb300ffd991f71dffa882"}}
