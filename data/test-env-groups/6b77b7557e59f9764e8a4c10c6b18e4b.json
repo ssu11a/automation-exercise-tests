@@ -1,1 +1,1 @@
-{"id":"6b77b7557e59f9764e8a4c10c6b18e4b","fullName":"regression/products.spec.ts › Actions with products › Search product","name":"Search product","status":"passed","testResultsByEnv":{"default":"904443d98673a35f23da96e4df2381eb"}}
+{"id":"6b77b7557e59f9764e8a4c10c6b18e4b","fullName":"regression/products.spec.ts › Actions with products › Search product","name":"Search product","status":"failed","testResultsByEnv":{"default":"080572ebfd5b90ed1ddb3524ef9aa0ba"}}
