@@ -1,1 +1,1 @@
-{"id":"664a61a7a2484a56f1cd1dea9a056fc7","fullName":"regression/products.spec.ts › Actions with products › Add review on product","name":"Add review on product","status":"failed","testResultsByEnv":{"default":"b8108afea6d899fab26d3674c9ff5337"}}
+{"id":"664a61a7a2484a56f1cd1dea9a056fc7","fullName":"regression/products.spec.ts › Actions with products › Add review on product","name":"Add review on product","status":"passed","testResultsByEnv":{"default":"d0fb2ac625de32bf5e38c3ac95e7cfff"}}

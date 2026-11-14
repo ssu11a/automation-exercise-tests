@@ -1,1 +1,1 @@
-{"id":"7d385a5742fa9850893ac0d6c4bdd725","fullName":"regression/products.spec.ts › Actions with products › Add Products in Cart","name":"Add Products in Cart","status":"failed","testResultsByEnv":{"default":"37b9609109821426292fad76789229f2"}}
+{"id":"7d385a5742fa9850893ac0d6c4bdd725","fullName":"regression/products.spec.ts › Actions with products › Add Products in Cart","name":"Add Products in Cart","status":"passed","testResultsByEnv":{"default":"1479e54d641dfce6c9b48b36670c68f8"}}
