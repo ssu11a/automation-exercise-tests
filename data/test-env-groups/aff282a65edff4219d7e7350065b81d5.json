@@ -1,1 +1,1 @@
-{"id":"aff282a65edff4219d7e7350065b81d5","fullName":"regression/userAccount.spec.ts › User authentication › Logout User","name":"Logout User","status":"failed","testResultsByEnv":{"default":"cf5de4d7c6fc826b1808a9c1d0e98e36"}}
+{"id":"aff282a65edff4219d7e7350065b81d5","fullName":"regression/userAccount.spec.ts › User authentication › Logout User","name":"Logout User","status":"passed","testResultsByEnv":{"default":"1c1892888b04f36ef72a1623988bb960"}}
