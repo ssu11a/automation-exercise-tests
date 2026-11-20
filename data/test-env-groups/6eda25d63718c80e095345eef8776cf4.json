@@ -1,1 +1,1 @@
-{"id":"6eda25d63718c80e095345eef8776cf4","fullName":"regression/subscription.spec.ts › Subscription cases › Verify Subscription in Cart page","name":"Verify Subscription in Cart page","status":"failed","testResultsByEnv":{"default":"de0e36e557738b1aba732ac935629931"}}
+{"id":"6eda25d63718c80e095345eef8776cf4","fullName":"regression/subscription.spec.ts › Subscription cases › Verify Subscription in Cart page","name":"Verify Subscription in Cart page","status":"passed","testResultsByEnv":{"default":"bf1b621ddb4e9075f1fbc80a3bac3763"}}
