@@ -1,1 +1,1 @@
-{"id":"2fed55d54dd39017bc00029e2244023b","fullName":"regression/cart.spec.ts › Order cases › Remove products from cart","name":"Remove products from cart","status":"passed","testResultsByEnv":{"default":"405ef3d4d0afe92a4f246d35bbbb0d62"}}
+{"id":"2fed55d54dd39017bc00029e2244023b","fullName":"regression/cart.spec.ts › Order cases › Remove products from cart","name":"Remove products from cart","status":"broken","testResultsByEnv":{"default":"493c2b13ffc49a1bb12d749d8993e19c"}}
