@@ -1,1 +1,1 @@
-{"id":"f67f41782608d7b7dc5a9997533c7fdc","fullName":"regression/cart.spec.ts › Order cases › Verify address details in checkout page","name":"Verify address details in checkout page","status":"passed","testResultsByEnv":{"default":"27be292d695c5ae52d0e808cb7bbdf29"}}
+{"id":"f67f41782608d7b7dc5a9997533c7fdc","fullName":"regression/cart.spec.ts › Order cases › Verify address details in checkout page","name":"Verify address details in checkout page","status":"failed","testResultsByEnv":{"default":"45ac501bc8eff6f65cd4a7229ff1162e"}}
