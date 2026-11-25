@@ -1,1 +1,1 @@
-{"id":"d2666ebce9e3571fde6710af87a9f969","fullName":"regression/products.spec.ts › Actions with products › Verify All Products and product detail page","name":"Verify All Products and product detail page","status":"passed","testResultsByEnv":{"default":"0190bd2985d259fae1b3b2feade8c30d"}}
+{"id":"d2666ebce9e3571fde6710af87a9f969","fullName":"regression/products.spec.ts › Actions with products › Verify All Products and product detail page","name":"Verify All Products and product detail page","status":"failed","testResultsByEnv":{"default":"b97c92e02a24430fe2a7cfbb98701f0b"}}
