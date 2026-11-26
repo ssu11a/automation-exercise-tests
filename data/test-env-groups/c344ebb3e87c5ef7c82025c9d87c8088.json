@@ -1,1 +1,1 @@
-{"id":"c344ebb3e87c5ef7c82025c9d87c8088","fullName":"regression/userAccount.spec.ts › User authentication › Login User with correct email and password","name":"Login User with correct email and password","status":"failed","testResultsByEnv":{"default":"7bdbe3f5465e6d7af378aaab5324efd7"}}
+{"id":"c344ebb3e87c5ef7c82025c9d87c8088","fullName":"regression/userAccount.spec.ts › User authentication › Login User with correct email and password","name":"Login User with correct email and password","status":"passed","testResultsByEnv":{"default":"4bd3c77c70f835b35e830f59cd08a668"}}
