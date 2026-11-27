@@ -1,1 +1,1 @@
-{"id":"acaf3ec9699b911efda1fd636d8d14d8","fullName":"regression/products.spec.ts › Add to cart from recommended items","name":"Add to cart from recommended items","status":"passed","testResultsByEnv":{"default":"83f766231c6aaf4920ccfcf2e0ed8e2e"}}
+{"id":"acaf3ec9699b911efda1fd636d8d14d8","fullName":"regression/products.spec.ts › Add to cart from recommended items","name":"Add to cart from recommended items","status":"failed","testResultsByEnv":{"default":"d4de854d0c0922155f069e462ee3d1c6"}}

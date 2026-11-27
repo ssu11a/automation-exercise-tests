@@ -1,1 +1,1 @@
-{"id":"e2a87f5e58f7fc1aad660538f9b509af","fullName":"regression/userAccount.spec.ts › User registration › Register user","name":"Register user","status":"passed","testResultsByEnv":{"default":"a5729941020530d6b94482496bc68860"}}
+{"id":"e2a87f5e58f7fc1aad660538f9b509af","fullName":"regression/userAccount.spec.ts › User registration › Register user","name":"Register user","status":"failed","testResultsByEnv":{"default":"103a6abc2bbcac9e3d3eaa35de02c359"}}
